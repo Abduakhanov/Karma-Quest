@@ -1,0 +1,49 @@
+{
+  "title": "Your Karma Tasks",
+  "description": "Complete tasks to earn XP and improve your karma score",
+  "addTask": "Add Task",
+  "categories": {
+    "all": "All Tasks",
+    "health": "Health",
+    "relationships": "Relationships", 
+    "finances": "Finances",
+    "spirituality": "Spirituality",
+    "career": "Career"
+  },
+  "progress": {
+    "title": "Progress Overview",
+    "of": "of",
+    "complete": "Complete"
+  },
+  "search": {
+    "placeholder": "Search tasks..."
+  },
+  "addForm": {
+    "title": "Add New Task",
+    "taskTitle": "Task Title",
+    "category": "Category",
+    "description": "Description",
+    "priority": "Priority",
+    "xpReward": "XP Reward"
+  },
+  "translation": {
+    "inProgress": "Translation in Progress",
+    "fallback": "Using Fallback Language",
+    "missing": "missing",
+    "processingMessage": "We're translating your quests to your language. This usually takes less than 30 seconds.",
+    "fallbackMessage": "Some content is shown in {{language}} while we prepare translations.",
+    "refresh": "Refresh",
+    "request": "Request Translation",
+    "estimatedTime": "~30 seconds"
+  },
+  "error": {
+    "title": "Failed to Load Tasks",
+    "message": "Please check your connection and try again."
+  },
+  "empty": {
+    "title": "No tasks found",
+    "filtered": "Try adjusting your search or filter",
+    "noTasks": "Start your karma journey by adding your first task",
+    "addFirst": "Add Your First Task"
+  }
+}

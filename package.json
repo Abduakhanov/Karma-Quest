@@ -1,13 +1,17 @@
 {
   "name": "karmaquest-platform",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.6.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "i18n:lint": "node scripts/checkMissing.js",
+    "prebuild": "npm run i18n:lint",
+    "db:migrate": "node scripts/migrate.js",
+    "db:seed": "node scripts/seed.js"
   },
   "dependencies": {
     "lucide-react": "^0.344.0",
@@ -18,7 +22,12 @@
     "i18next-browser-languagedetector": "^7.2.0",
     "i18next-http-backend": "^2.4.2",
     "date-fns": "^2.30.0",
-    "framer-motion": "^10.16.16"
+    "framer-motion": "^10.16.16",
+    "@tanstack/react-query": "^5.17.0",
+    "@trpc/client": "^10.45.0",
+    "@trpc/react-query": "^10.45.0",
+    "@trpc/server": "^10.45.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
