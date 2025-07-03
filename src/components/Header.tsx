@@ -107,14 +107,6 @@ const Header: React.FC<HeaderProps> = ({ state, onNavigate }) => {
               >
                 {t('navigation.marketplace')}
               </button>
-              <button
-                onClick={() => onNavigate('web3')}
-                className={`text-sm font-medium transition-colors ${
-                  state.currentPage === 'web3' ? 'text-purple-600' : 'text-gray-700 hover:text-purple-600'
-                }`}
-              >
-                Web3
-              </button>
             </nav>
           </div>
 
@@ -150,8 +142,7 @@ const Header: React.FC<HeaderProps> = ({ state, onNavigate }) => {
               { key: 'tasks', page: 'tasks' as const },
               { key: 'diary', page: 'diary' as const },
               { key: 'rewards', page: 'rewards' as const },
-              { key: 'marketplace', page: 'marketplace' as const },
-              { key: 'web3', page: 'web3' as const }
+              { key: 'marketplace', page: 'marketplace' as const }
             ].map(({ key, page }) => (
               <button
                 key={key}

@@ -12,7 +12,6 @@ export interface User {
   birthDate?: Date;
   timezone?: string;
   preferredLanguage?: string;
-  web3Address?: string;
 }
 
 export interface BeliefSystem {
@@ -83,8 +82,6 @@ export interface Achievement {
   unlockedAt?: Date;
   xpReward: number;
   condition: string;
-  nftMinted?: boolean;
-  nftTokenId?: string;
 }
 
 export interface Expert {
@@ -100,12 +97,11 @@ export interface Expert {
   verified: boolean;
   responseTime: string;
   completedSessions: number;
-  web3Address?: string;
 }
 
 export interface AppState {
   user: User | null;
-  currentPage: 'landing' | 'onboarding' | 'dashboard' | 'tasks' | 'diary' | 'rewards' | 'marketplace' | 'web3';
+  currentPage: 'landing' | 'onboarding' | 'dashboard' | 'tasks' | 'diary' | 'rewards' | 'marketplace';
   onboardingStep: number;
   karmaAnalysis: KarmaAnalysis | null;
   tasks: Task[];
@@ -114,7 +110,6 @@ export interface AppState {
   suggestedTasks: Task[];
   isLoading: boolean;
   experts?: Expert[];
-  web3Connected?: boolean;
 }
 
 export interface OnboardingData {
@@ -127,25 +122,4 @@ export interface OnboardingData {
   };
   karmaInsight?: KarmaAnalysis;
   selectedTasks: string[];
-}
-
-export interface NFTBadge {
-  id: string;
-  tokenId: string;
-  name: string;
-  description: string;
-  image: string;
-  rarity: 'common' | 'rare' | 'epic' | 'legendary';
-  achievementId: string;
-  mintedAt: Date;
-  transactionHash: string;
-}
-
-export interface Web3State {
-  connected: boolean;
-  address: string | null;
-  chainId: number | null;
-  badges: NFTBadge[];
-  onChainXP: number;
-  karmaTokens: number;
 }

@@ -8,7 +8,6 @@ import TaskManager from './components/TaskManager';
 import DiarySystem from './components/DiarySystem';
 import RewardsHub from './components/RewardsHub';
 import ExpertMarketplace from './components/ExpertMarketplace';
-import Web3Dashboard from './components/Web3Dashboard';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
 import OfflineIndicator from './components/OfflineIndicator';
 import { AppState, Task, DiaryEntry, OnboardingData } from './types';
@@ -344,8 +343,6 @@ const App: React.FC = () => {
         return <RewardsHub state={state} achievements={state.achievements} />;
       case 'marketplace':
         return <ExpertMarketplace />;
-      case 'web3':
-        return <Web3Dashboard />;
       default:
         return <LandingPage onNavigate={handleNavigation} />;
     }
