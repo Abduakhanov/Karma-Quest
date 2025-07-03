@@ -1,15 +1,32 @@
 import { BeliefSystem, KarmaAnalysis, Task } from '../types';
+import { KarmaAnalysisResult } from '../types/karma';
 import { beliefSystems, taskTemplates } from '../data/mockData';
+import { KarmaAnalyzer } from './karmaAnalyzer';
+import { getTestByBeliefSystem } from '../data/karmaTests';
 
 export class KarmaEngine {
   static async generateKarmaAnalysis(
     selectedBeliefs: string[],
-    profileData: { name: string; birthDate?: Date; timezone: string }
-  ): Promise<KarmaAnalysis> {
+    profileData: { name: string; birthDate?: Date; timezone: string },
+    testResponses?: { [beliefSystem: string]: { [questionId: string]: any } }
+  ): Promise<KarmaAnalysisResult> {
     // Simulate API calls to different belief system adapters
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    const insights: KarmaAnalysis['insights'] = {};
+    if (testResponses) {
+      // Используем новый анализатор кармы
+      return KarmaAnalyzer.analyzeKarma(selectedBeliefs, testResponses, profileData);
+    }
+
+    // Fallback к старому методу для совместимости
+    return this.generateLegacyKarmaAnalysis(selectedBeliefs, profileData);
+  }
+
+  private static async generateLegacyKarmaAnalysis(
+    selectedBeliefs: string[],
+    profileData: { name: string; birthDate?: Date; timezone: string }
+  ): Promise<any> {
+    const insights: any = {};
     let totalScore = 0;
 
     for (const beliefId of selectedBeliefs) {
@@ -43,9 +60,15 @@ export class KarmaEngine {
     };
   }
 
-  static generateSuggestedTasks(selectedBeliefs: string[]): Task[] {
+  static generateSuggestedTasks(selectedBeliefs: string[], karmaType?: string): Task[] {
     const tasks: Task[] = [];
     const categories = ['health', 'spirituality', 'relationships', 'finances', 'career'];
+
+    // Генерируем задачи на основе типа кармы
+    if (karmaType) {
+      const karmaTasks = this.generateKarmaSpecificTasks(karmaType);
+      tasks.push(...karmaTasks);
+    }
 
     for (const category of categories) {
       for (const beliefId of selectedBeliefs) {
@@ -97,6 +120,117 @@ export class KarmaEngine {
     ];
 
     return [...tasks, ...genericTasks].slice(0, 12); // Limit to 12 suggested tasks
+  }
+
+  private static generateKarmaSpecificTasks(karmaType: string): Task[] {
+    const karmaTasks: { [key: string]: Task[] } = {
+      helper: [
+        {
+          id: 'helper-1',
+          title: 'Помогите незнакомцу',
+          description: 'Найдите способ помочь кому-то, кого вы не знаете',
+          category: 'relationships',
+          priority: 4,
+          completed: false,
+          xpReward: 35,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        },
+        {
+          id: 'helper-2',
+          title: 'Волонтерская работа',
+          description: 'Посвятите 2 часа волонтерской деятельности',
+          category: 'spirituality',
+          priority: 5,
+          completed: false,
+          xpReward: 50,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        }
+      ],
+      independent: [
+        {
+          id: 'independent-1',
+          title: 'Примите решение самостоятельно',
+          description: 'Сделайте важный выбор, полагаясь только на свою интуицию',
+          category: 'spirituality',
+          priority: 4,
+          completed: false,
+          xpReward: 30,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        },
+        {
+          id: 'independent-2',
+          title: 'Время в одиночестве',
+          description: 'Проведите день наедине с собой, без социальных медиа',
+          category: 'health',
+          priority: 3,
+          completed: false,
+          xpReward: 25,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        }
+      ],
+      creator: [
+        {
+          id: 'creator-1',
+          title: 'Создайте что-то новое',
+          description: 'Воплотите в жизнь творческую идею, которая давно у вас в голове',
+          category: 'spirituality',
+          priority: 5,
+          completed: false,
+          xpReward: 40,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        },
+        {
+          id: 'creator-2',
+          title: 'Поделитесь творчеством',
+          description: 'Покажите свое творение другим людям',
+          category: 'relationships',
+          priority: 3,
+          completed: false,
+          xpReward: 30,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        }
+      ],
+      leader: [
+        {
+          id: 'leader-1',
+          title: 'Возглавьте проект',
+          description: 'Инициируйте и возглавьте групповую активность',
+          category: 'career',
+          priority: 5,
+          completed: false,
+          xpReward: 45,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        },
+        {
+          id: 'leader-2',
+          title: 'Наставничество',
+          description: 'Станьте ментором для кого-то младшего или менее опытного',
+          category: 'relationships',
+          priority: 4,
+          completed: false,
+          xpReward: 35,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        }
+      ]
+    };
+
+    return karmaTasks[karmaType] || [];
   }
 
   private static calculateBeliefScore(belief: BeliefSystem, profileData: any): number {

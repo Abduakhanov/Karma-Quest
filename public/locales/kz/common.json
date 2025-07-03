@@ -13,26 +13,31 @@
     "add": "Қосу",
     "create": "Жасау",
     "update": "Жаңарту",
-    "confirm": "Растау"
+    "confirm": "Растау",
+    "retry": "Қайталау",
+    "refresh": "Жаңарту"
   },
   "navigation": {
-    "dashboard": "Басты бет",
+    "dashboard": "Басқару панелі",
     "tasks": "Тапсырмалар",
     "diary": "Күнделік",
     "rewards": "Сыйлықтар",
     "marketplace": "Маркетплейс",
     "profile": "Профиль",
-    "settings": "Баптаулар"
+    "settings": "Баптаулар",
+    "home": "Басты бет"
   },
   "status": {
-    "success": "Сәттілік",
+    "success": "Сәтті",
     "error": "Қате",
     "warning": "Ескерту",
     "info": "Ақпарат",
     "completed": "Аяқталды",
     "pending": "Күтуде",
     "active": "Белсенді",
-    "inactive": "Белсенді емес"
+    "inactive": "Белсенді емес",
+    "processing": "Өңдеу",
+    "failed": "Сәтсіз"
   },
   "time": {
     "today": "Бүгін",
@@ -41,7 +46,9 @@
     "thisWeek": "Осы аптада",
     "lastWeek": "Өткен аптада",
     "thisMonth": "Осы айда",
-    "lastMonth": "Өткен айда"
+    "lastMonth": "Өткен айда",
+    "now": "Қазір",
+    "soon": "Жақында"
   },
   "units": {
     "xp": "Тәжірибе",
@@ -49,6 +56,19 @@
     "points": "Ұпай",
     "days": "Күндер",
     "hours": "Сағаттар",
-    "minutes": "Минуттар"
+    "minutes": "Минуттар",
+    "priority": "Басымдық"
+  },
+  "karma": {
+    "types": {
+      "helper": "Адамдарға көмекші",
+      "independent": "Тәуелсіз жол",
+      "creator": "Жасаушы және құраушы",
+      "protector": "Қорғаушы және сақшы",
+      "teacher": "Ұстаз және жетекші",
+      "healer": "Жан емшісі",
+      "leader": "Көшбасшы және шабыттандырушы",
+      "seeker": "Шындық іздеуші"
+    }
   }
 }
