@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { TrendingUp, Heart, DollarSign, Brain, Briefcase, Star, Target, BookOpen } from 'lucide-react';
 import { AppState, KarmaAnalysis } from '../types';
 
@@ -9,6 +10,7 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ state, karmaAnalysis, onNavigate }) => {
+  const { t } = useTranslation('dashboard');
   const { user } = state;
   if (!user) return null;
 
@@ -42,10 +44,10 @@ const Dashboard: React.FC<DashboardProps> = ({ state, karmaAnalysis, onNavigate 
         {/* Welcome Section */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome back, {user.name}! 🌟
+            {t('welcome', { name: user.name })} 🌟
           </h1>
           <p className="text-gray-600">
-            Here's your cosmic overview and progress on your karma quest
+            {t('overview')}
           </p>
         </div>
 
@@ -54,7 +56,7 @@ const Dashboard: React.FC<DashboardProps> = ({ state, karmaAnalysis, onNavigate 
           <div className="bg-white rounded-xl p-6 shadow-lg">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Overall Karma</p>
+                <p className="text-sm font-medium text-gray-600">{t('stats.karma')}</p>
                 <p className="text-2xl font-bold text-purple-600">{karmaAnalysis.overallScore}</p>
               </div>
               <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
@@ -66,7 +68,7 @@ const Dashboard: React.FC<DashboardProps> = ({ state, karmaAnalysis, onNavigate 
           <div className="bg-white rounded-xl p-6 shadow-lg">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Level</p>
+                <p className="text-sm font-medium text-gray-600">{t('stats.level')}</p>
                 <p className="text-2xl font-bold text-teal-600">{user.level}</p>
               </div>
               <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center">
@@ -78,7 +80,7 @@ const Dashboard: React.FC<DashboardProps> = ({ state, karmaAnalysis, onNavigate 
           <div className="bg-white rounded-xl p-6 shadow-lg">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Tasks Complete</p>
+                <p className="text-sm font-medium text-gray-600">{t('stats.tasks')}</p>
                 <p className="text-2xl font-bold text-green-600">{completedTasks}/{totalTasks}</p>
               </div>
               <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
@@ -90,7 +92,7 @@ const Dashboard: React.FC<DashboardProps> = ({ state, karmaAnalysis, onNavigate 
           <div className="bg-white rounded-xl p-6 shadow-lg">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Diary Entries</p>
+                <p className="text-sm font-medium text-gray-600">{t('stats.entries')}</p>
                 <p className="text-2xl font-bold text-orange-600">{state.diaryEntries.length}</p>
               </div>
               <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
@@ -103,7 +105,7 @@ const Dashboard: React.FC<DashboardProps> = ({ state, karmaAnalysis, onNavigate 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Karma Analysis */}
           <div className="bg-white rounded-xl shadow-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">Karma Analysis</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-6">{t('analysis.title')}</h2>
             
             <div className="space-y-4">
               {Object.entries(karmaAnalysis.areas).map(([area, score]) => {
@@ -135,7 +137,7 @@ const Dashboard: React.FC<DashboardProps> = ({ state, karmaAnalysis, onNavigate 
 
           {/* Recommendations */}
           <div className="bg-white rounded-xl shadow-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">Cosmic Recommendations</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-6">{t('analysis.recommendations')}</h2>
             
             <div className="space-y-4">
               {karmaAnalysis.recommendations.map((rec, index) => (
@@ -152,7 +154,7 @@ const Dashboard: React.FC<DashboardProps> = ({ state, karmaAnalysis, onNavigate 
               onClick={() => onNavigate('tasks')}
               className="w-full mt-6 bg-gradient-to-r from-purple-600 to-teal-600 text-white py-3 rounded-lg font-semibold hover:scale-105 transition-transform"
             >
-              View All Tasks
+              {t('analysis.viewAllTasks')}
             </button>
           </div>
         </div>
@@ -160,7 +162,7 @@ const Dashboard: React.FC<DashboardProps> = ({ state, karmaAnalysis, onNavigate 
         {/* Strengths & Challenges */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
           <div className="bg-white rounded-xl shadow-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">Your Strengths ✨</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-6">{t('strengths.title')} {t('strengths.icon')}</h2>
             <div className="space-y-3">
               {karmaAnalysis.strengths.map((strength, index) => (
                 <div key={index} className="flex items-center space-x-3">
@@ -172,7 +174,7 @@ const Dashboard: React.FC<DashboardProps> = ({ state, karmaAnalysis, onNavigate 
           </div>
           
           <div className="bg-white rounded-xl shadow-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">Growth Areas 🌱</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-6">{t('challenges.title')} {t('challenges.icon')}</h2>
             <div className="space-y-3">
               {karmaAnalysis.challenges.map((challenge, index) => (
                 <div key={index} className="flex items-center space-x-3">
@@ -186,12 +188,12 @@ const Dashboard: React.FC<DashboardProps> = ({ state, karmaAnalysis, onNavigate 
 
         {/* Progress Overview */}
         <div className="bg-white rounded-xl shadow-lg p-6 mt-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">Your Progress</h2>
+          <h2 className="text-xl font-semibold text-gray-900 mb-6">{t('progress.title')}</h2>
           
           <div className="flex items-center space-x-4 mb-4">
             <div className="flex-1">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-700">Overall Progress</span>
+                <span className="text-sm font-medium text-gray-700">{t('progress.overall')}</span>
                 <span className="text-sm text-gray-600">{completionRate}%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3">
@@ -206,15 +208,15 @@ const Dashboard: React.FC<DashboardProps> = ({ state, karmaAnalysis, onNavigate 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center p-4 bg-purple-50 rounded-lg">
               <div className="text-2xl font-bold text-purple-600">{user.xp}</div>
-              <div className="text-sm text-gray-600">Total XP</div>
+              <div className="text-sm text-gray-600">{t('progress.totalXp')}</div>
             </div>
             <div className="text-center p-4 bg-teal-50 rounded-lg">
               <div className="text-2xl font-bold text-teal-600">{completedTasks}</div>
-              <div className="text-sm text-gray-600">Tasks Completed</div>
+              <div className="text-sm text-gray-600">{t('progress.tasksCompleted')}</div>
             </div>
             <div className="text-center p-4 bg-yellow-50 rounded-lg">
               <div className="text-2xl font-bold text-yellow-600">{user.beliefSystems.length}</div>
-              <div className="text-sm text-gray-600">Systems Active</div>
+              <div className="text-sm text-gray-600">{t('progress.systemsActive')}</div>
             </div>
           </div>
         </div>

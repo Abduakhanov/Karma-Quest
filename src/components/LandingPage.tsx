@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Star, Sparkles, Target, Trophy, Heart, Brain, ArrowRight, Users, Zap } from 'lucide-react';
 import { AppState } from '../types';
 
@@ -7,6 +8,8 @@ interface LandingPageProps {
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
+  const { t } = useTranslation('landing');
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-teal-50">
       {/* Hero Section */}
@@ -15,19 +18,18 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           <div className="mb-8">
             <div className="inline-flex items-center bg-gradient-to-r from-purple-100 to-teal-100 rounded-full px-4 py-2 mb-6">
               <Sparkles className="w-4 h-4 text-purple-600 mr-2" />
-              <span className="text-sm font-medium text-purple-700">Discover Your Cosmic Potential</span>
+              <span className="text-sm font-medium text-purple-700">{t('hero.badge')}</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
-              Unlock Your
+              {t('hero.title')}
               <span className="block bg-gradient-to-r from-purple-600 to-teal-600 bg-clip-text text-transparent">
-                Karma Quest
+                {t('hero.titleHighlight')}
               </span>
             </h1>
             
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Gamify your personal growth through the wisdom of multiple belief systems. 
-              From astrology to psychology, discover personalized insights and transform them into actionable quests.
+              {t('hero.subtitle')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -35,12 +37,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                 onClick={() => onNavigate('onboarding')}
                 className="bg-gradient-to-r from-purple-600 to-teal-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:scale-105 transition-transform shadow-lg hover:shadow-xl"
               >
-                Begin Your Journey
+                {t('hero.cta')}
                 <ArrowRight className="w-5 h-5 ml-2 inline" />
               </button>
               
               <button className="text-purple-600 font-semibold text-lg hover:text-purple-700 transition-colors">
-                Watch Demo
+                {t('hero.watchDemo')}
               </button>
             </div>
           </div>
@@ -50,24 +52,24 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-4 mx-auto">
                 <Brain className="w-6 h-6 text-purple-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Personal Analysis</h3>
-              <p className="text-gray-600">Get insights from multiple belief systems tailored to your unique profile</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('features.analysis.title')}</h3>
+              <p className="text-gray-600">{t('features.analysis.description')}</p>
             </div>
             
             <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center mb-4 mx-auto">
                 <Target className="w-6 h-6 text-teal-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Actionable Quests</h3>
-              <p className="text-gray-600">Transform insights into specific tasks and habits for real-world growth</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('features.quests.title')}</h3>
+              <p className="text-gray-600">{t('features.quests.description')}</p>
             </div>
             
             <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
               <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mb-4 mx-auto">
                 <Trophy className="w-6 h-6 text-yellow-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Rewarding Progress</h3>
-              <p className="text-gray-600">Earn XP, unlock achievements, and track your transformation journey</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('features.rewards.title')}</h3>
+              <p className="text-gray-600">{t('features.rewards.description')}</p>
             </div>
           </div>
         </div>
@@ -78,10 +80,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Multiple Paths to Self-Discovery
+              {t('features.title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Choose the belief systems that resonate with you and get personalized guidance
+              {t('features.subtitle')}
             </p>
           </div>
 
@@ -111,26 +113,26 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Your Journey in 4 Steps
+              {t('howItWorks.title')}
             </h2>
             <p className="text-xl text-gray-600">
-              Simple, effective, and engaging personal development
+              {t('howItWorks.subtitle')}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { step: 1, title: 'Choose Systems', desc: 'Select belief systems that resonate with you', icon: Star },
-              { step: 2, title: 'Get Analysis', desc: 'Receive personalized karma insights and recommendations', icon: Sparkles },
-              { step: 3, title: 'Complete Quests', desc: 'Transform insights into actionable tasks and habits', icon: Target },
-              { step: 4, title: 'Earn Rewards', desc: 'Level up, unlock achievements, and track progress', icon: Trophy }
+              { step: 1, key: 'choose', icon: Star },
+              { step: 2, key: 'analyze', icon: Sparkles },
+              { step: 3, key: 'complete', icon: Target },
+              { step: 4, key: 'earn', icon: Trophy }
             ].map((item) => (
               <div key={item.step} className="text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-teal-600 rounded-full flex items-center justify-center text-white text-xl font-bold mb-4 mx-auto">
                   {item.step}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-gray-600">{item.desc}</p>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{t(`howItWorks.steps.${item.key}.title`)}</h3>
+                <p className="text-gray-600">{t(`howItWorks.steps.${item.key}.description`)}</p>
               </div>
             ))}
           </div>
@@ -143,15 +145,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
               <div className="text-4xl font-bold text-purple-600 mb-2">10K+</div>
-              <div className="text-gray-600">Karma Seekers</div>
+              <div className="text-gray-600">{t('stats.seekers')}</div>
             </div>
             <div>
               <div className="text-4xl font-bold text-teal-600 mb-2">500K+</div>
-              <div className="text-gray-600">Tasks Completed</div>
+              <div className="text-gray-600">{t('stats.tasks')}</div>
             </div>
             <div>
               <div className="text-4xl font-bold text-yellow-600 mb-2">8</div>
-              <div className="text-gray-600">Belief Systems</div>
+              <div className="text-gray-600">{t('stats.systems')}</div>
             </div>
           </div>
         </div>
@@ -161,16 +163,16 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
       <section className="py-20 bg-gradient-to-r from-purple-600 to-teal-600">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-white mb-4">
-            Ready to Transform Your Life?
+            {t('cta.title')}
           </h2>
           <p className="text-xl text-purple-100 mb-8">
-            Join thousands of seekers on their journey to self-discovery and personal growth
+            {t('cta.subtitle')}
           </p>
           <button
             onClick={() => onNavigate('onboarding')}
             className="bg-white text-purple-600 px-8 py-4 rounded-full font-semibold text-lg hover:scale-105 transition-transform shadow-lg hover:shadow-xl"
           >
-            Start Your Quest Today
+            {t('cta.button')}
           </button>
         </div>
       </section>
@@ -185,12 +187,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                 <span className="text-xl font-bold">KarmaQuest</span>
               </div>
               <p className="text-gray-400">
-                Gamify your personal growth through ancient wisdom and modern insights
+                {t('footer.description')}
               </p>
             </div>
             
             <div>
-              <h3 className="font-semibold mb-4">Platform</h3>
+              <h3 className="font-semibold mb-4">{t('footer.platform')}</h3>
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">How It Works</a></li>
@@ -199,7 +201,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             </div>
             
             <div>
-              <h3 className="font-semibold mb-4">Support</h3>
+              <h3 className="font-semibold mb-4">{t('footer.support')}</h3>
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Community</a></li>
@@ -208,7 +210,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             </div>
             
             <div>
-              <h3 className="font-semibold mb-4">Company</h3>
+              <h3 className="font-semibold mb-4">{t('footer.company')}</h3>
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#" className="hover:text-white transition-colors">About</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Privacy</a></li>
@@ -218,7 +220,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 KarmaQuest. All rights reserved.</p>
+            <p>&copy; 2024 KarmaQuest. {t('footer.copyright')}</p>
           </div>
         </div>
       </footer>

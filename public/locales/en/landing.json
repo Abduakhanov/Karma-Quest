@@ -1,0 +1,65 @@
+{
+  "hero": {
+    "title": "Unlock Your",
+    "titleHighlight": "Karma Quest",
+    "subtitle": "Gamify your personal growth through the wisdom of multiple belief systems. From astrology to psychology, discover personalized insights and transform them into actionable quests.",
+    "cta": "Begin Your Journey",
+    "watchDemo": "Watch Demo",
+    "badge": "Discover Your Cosmic Potential"
+  },
+  "features": {
+    "title": "Multiple Paths to Self-Discovery",
+    "subtitle": "Choose the belief systems that resonate with you and get personalized guidance",
+    "analysis": {
+      "title": "Personal Analysis",
+      "description": "Get insights from multiple belief systems tailored to your unique profile"
+    },
+    "quests": {
+      "title": "Actionable Quests",
+      "description": "Transform insights into specific tasks and habits for real-world growth"
+    },
+    "rewards": {
+      "title": "Rewarding Progress",
+      "description": "Earn XP, unlock achievements, and track your transformation journey"
+    }
+  },
+  "howItWorks": {
+    "title": "Your Journey in 4 Steps",
+    "subtitle": "Simple, effective, and engaging personal development",
+    "steps": {
+      "choose": {
+        "title": "Choose Systems",
+        "description": "Select belief systems that resonate with you"
+      },
+      "analyze": {
+        "title": "Get Analysis",
+        "description": "Receive personalized karma insights and recommendations"
+      },
+      "complete": {
+        "title": "Complete Quests",
+        "description": "Transform insights into actionable tasks and habits"
+      },
+      "earn": {
+        "title": "Earn Rewards",
+        "description": "Level up, unlock achievements, and track progress"
+      }
+    }
+  },
+  "stats": {
+    "seekers": "Karma Seekers",
+    "tasks": "Tasks Completed",
+    "systems": "Belief Systems"
+  },
+  "cta": {
+    "title": "Ready to Transform Your Life?",
+    "subtitle": "Join thousands of seekers on their journey to self-discovery and personal growth",
+    "button": "Start Your Quest Today"
+  },
+  "footer": {
+    "description": "Gamify your personal growth through ancient wisdom and modern insights",
+    "platform": "Platform",
+    "support": "Support",
+    "company": "Company",
+    "copyright": "All rights reserved"
+  }
+}

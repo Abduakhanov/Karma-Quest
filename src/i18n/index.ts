@@ -1,31 +1,21 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-
-// Import translations
-import enTranslations from './locales/en.json';
-import ruTranslations from './locales/ru.json';
-import kzTranslations from './locales/kz.json';
-
-const resources = {
-  en: {
-    translation: enTranslations
-  },
-  ru: {
-    translation: ruTranslations
-  },
-  kz: {
-    translation: kzTranslations
-  }
-};
+import HttpBackend from 'i18next-http-backend';
 
 i18n
+  .use(HttpBackend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    resources,
     fallbackLng: 'en',
-    debug: process.env.NODE_ENV === 'development',
+    supportedLngs: ['en', 'ru', 'kz'],
+    ns: ['common', 'landing', 'dashboard', 'tasks', 'diary', 'rewards', 'marketplace', 'onboarding'],
+    defaultNS: 'common',
+    
+    backend: {
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
+    },
     
     interpolation: {
       escapeValue: false,
@@ -34,7 +24,15 @@ i18n
     detection: {
       order: ['localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
-    }
+    },
+    
+    debug: process.env.NODE_ENV === 'development',
   });
+
+// Set HTML lang attribute when language changes
+i18n.on('languageChanged', (lng) => {
+  document.documentElement.lang = lng;
+  document.documentElement.dir = lng === 'ar' ? 'rtl' : 'ltr';
+});
 
 export default i18n;

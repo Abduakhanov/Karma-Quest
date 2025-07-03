@@ -1,0 +1,54 @@
+{
+  "buttons": {
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "back": "Назад",
+    "next": "Далее",
+    "continue": "Продолжить",
+    "close": "Закрыть",
+    "loading": "Загрузка...",
+    "submit": "Отправить",
+    "add": "Добавить",
+    "create": "Создать",
+    "update": "Обновить",
+    "confirm": "Подтвердить"
+  },
+  "navigation": {
+    "dashboard": "Панель",
+    "tasks": "Задачи",
+    "diary": "Дневник",
+    "rewards": "Награды",
+    "marketplace": "Маркетплейс",
+    "profile": "Профиль",
+    "settings": "Настройки"
+  },
+  "status": {
+    "success": "Успех",
+    "error": "Ошибка",
+    "warning": "Предупреждение",
+    "info": "Информация",
+    "completed": "Завершено",
+    "pending": "В ожидании",
+    "active": "Активно",
+    "inactive": "Неактивно"
+  },
+  "time": {
+    "today": "Сегодня",
+    "yesterday": "Вчера",
+    "tomorrow": "Завтра",
+    "thisWeek": "На этой неделе",
+    "lastWeek": "На прошлой неделе",
+    "thisMonth": "В этом месяце",
+    "lastMonth": "В прошлом месяце"
+  },
+  "units": {
+    "xp": "Опыт",
+    "level": "Уровень",
+    "points": "Очки",
+    "days": "Дни",
+    "hours": "Часы",
+    "minutes": "Минуты"
+  }
+}

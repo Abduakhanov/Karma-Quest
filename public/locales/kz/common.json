@@ -1,0 +1,54 @@
+{
+  "buttons": {
+    "save": "Сақтау",
+    "cancel": "Болдырмау",
+    "delete": "Жою",
+    "edit": "Өңдеу",
+    "back": "Артқа",
+    "next": "Келесі",
+    "continue": "Жалғастыру",
+    "close": "Жабу",
+    "loading": "Жүктелуде...",
+    "submit": "Жіберу",
+    "add": "Қосу",
+    "create": "Жасау",
+    "update": "Жаңарту",
+    "confirm": "Растау"
+  },
+  "navigation": {
+    "dashboard": "Басты бет",
+    "tasks": "Тапсырмалар",
+    "diary": "Күнделік",
+    "rewards": "Сыйлықтар",
+    "marketplace": "Маркетплейс",
+    "profile": "Профиль",
+    "settings": "Баптаулар"
+  },
+  "status": {
+    "success": "Сәттілік",
+    "error": "Қате",
+    "warning": "Ескерту",
+    "info": "Ақпарат",
+    "completed": "Аяқталды",
+    "pending": "Күтуде",
+    "active": "Белсенді",
+    "inactive": "Белсенді емес"
+  },
+  "time": {
+    "today": "Бүгін",
+    "yesterday": "Кеше",
+    "tomorrow": "Ертең",
+    "thisWeek": "Осы аптада",
+    "lastWeek": "Өткен аптада",
+    "thisMonth": "Осы айда",
+    "lastMonth": "Өткен айда"
+  },
+  "units": {
+    "xp": "Тәжірибе",
+    "level": "Деңгей",
+    "points": "Ұпай",
+    "days": "Күндер",
+    "hours": "Сағаттар",
+    "minutes": "Минуттар"
+  }
+}
