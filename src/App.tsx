@@ -10,10 +10,12 @@ import RewardsHub from './components/RewardsHub';
 import ExpertMarketplace from './components/ExpertMarketplace';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
 import OfflineIndicator from './components/OfflineIndicator';
+import BackToTop from './components/BackToTop';
 import { AppState, Task, DiaryEntry, OnboardingData } from './types';
 import { mockUser, mockKarmaAnalysis, achievements } from './data/mockData';
 import { KarmaEngine } from './utils/karmaEngine';
 import { offlineStorage } from './utils/offlineStorage';
+import { getFeatureState } from './config/featureFlags';
 
 const App: React.FC = () => {
   const { i18n } = useTranslation();
@@ -135,6 +137,12 @@ const App: React.FC = () => {
   }, [i18n]);
 
   const handleNavigation = (page: AppState['currentPage']) => {
+    // Redirect marketplace to landing if feature is disabled
+    if (page === 'marketplace' && !getFeatureState('marketplace')) {
+      setState(prev => ({ ...prev, currentPage: 'landing' }));
+      return;
+    }
+    
     setState(prev => ({ ...prev, currentPage: page }));
   };
 
@@ -342,7 +350,8 @@ const App: React.FC = () => {
       case 'rewards':
         return <RewardsHub state={state} achievements={state.achievements} />;
       case 'marketplace':
-        return <ExpertMarketplace />;
+        // Only render if feature is enabled
+        return getFeatureState('marketplace') ? <ExpertMarketplace /> : <LandingPage onNavigate={handleNavigation} />;
       default:
         return <LandingPage onNavigate={handleNavigation} />;
     }
@@ -352,6 +361,7 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-teal-50">
       <Header state={state} onNavigate={handleNavigation} />
       {renderCurrentPage()}
+      <BackToTop />
       <PWAInstallPrompt />
       <OfflineIndicator />
     </div>
