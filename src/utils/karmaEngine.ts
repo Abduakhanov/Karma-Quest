@@ -1,8 +1,8 @@
 import { BeliefSystem, KarmaAnalysis, Task } from '../types';
 import { KarmaAnalysisResult } from '../types/karma';
 import { beliefSystems, taskTemplates } from '../data/mockData';
-import { KarmaAnalyzer } from './karmaAnalyzer';
-import { getTestByBeliefSystem } from '../data/karmaTests';
+import { EnhancedKarmaAnalyzer } from './enhancedKarmaAnalyzer';
+import { getExtendedTestByBeliefSystem } from '../data/extendedKarmaTests';
 
 export class KarmaEngine {
   static async generateKarmaAnalysis(
@@ -14,8 +14,8 @@ export class KarmaEngine {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     if (testResponses) {
-      // Используем новый анализатор кармы
-      return KarmaAnalyzer.analyzeKarma(selectedBeliefs, testResponses, profileData);
+      // Используем новый расширенный анализатор кармы
+      return EnhancedKarmaAnalyzer.analyzeKarma(selectedBeliefs, testResponses, profileData);
     }
 
     // Fallback к старому методу для совместимости
@@ -82,12 +82,18 @@ export class KarmaEngine {
       }
     }
 
-    // Add some generic tasks
+    // Добавляем универсальные задачи на основе кармы
+    if (karmaType) {
+      const universalTasks = this.generateUniversalKarmaTasks(karmaType);
+      tasks.push(...universalTasks);
+    }
+
+    // Добавляем некоторые общие задачи
     const genericTasks: Task[] = [
       {
         id: 'generic-1',
-        title: 'Practice gratitude journaling',
-        description: 'Write down 3 things you\'re grateful for today',
+        title: 'Практика благодарности',
+        description: 'Запишите 3 вещи, за которые вы благодарны сегодня',
         category: 'spirituality',
         priority: 3,
         completed: false,
@@ -97,8 +103,8 @@ export class KarmaEngine {
       },
       {
         id: 'generic-2',
-        title: 'Take a mindful walk',
-        description: 'Go for a 20-minute walk while focusing on your surroundings',
+        title: 'Осознанная прогулка',
+        description: 'Совершите 20-минутную прогулку, фокусируясь на окружающем мире',
         category: 'health',
         priority: 2,
         completed: false,
@@ -108,8 +114,8 @@ export class KarmaEngine {
       },
       {
         id: 'generic-3',
-        title: 'Call a loved one',
-        description: 'Reach out to someone important to you and have a meaningful conversation',
+        title: 'Связь с близкими',
+        description: 'Свяжитесь с важным для вас человеком и проведите содержательный разговор',
         category: 'relationships',
         priority: 4,
         completed: false,
@@ -119,7 +125,7 @@ export class KarmaEngine {
       }
     ];
 
-    return [...tasks, ...genericTasks].slice(0, 12); // Limit to 12 suggested tasks
+    return [...tasks, ...genericTasks].slice(0, 15); // Ограничиваем до 15 предложенных задач
   }
 
   private static generateKarmaSpecificTasks(karmaType: string): Task[] {
@@ -145,6 +151,18 @@ export class KarmaEngine {
           priority: 5,
           completed: false,
           xpReward: 50,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        },
+        {
+          id: 'helper-3',
+          title: 'Поддержите друга',
+          description: 'Активно выслушайте друга, который переживает трудности',
+          category: 'relationships',
+          priority: 3,
+          completed: false,
+          xpReward: 25,
           createdAt: new Date(),
           source: 'auto-generated',
           beliefSystemSource: 'karma-type'
@@ -174,6 +192,18 @@ export class KarmaEngine {
           createdAt: new Date(),
           source: 'auto-generated',
           beliefSystemSource: 'karma-type'
+        },
+        {
+          id: 'independent-3',
+          title: 'Следуйте своему пути',
+          description: 'Сделайте что-то, что важно для вас, несмотря на мнение других',
+          category: 'spirituality',
+          priority: 5,
+          completed: false,
+          xpReward: 40,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
         }
       ],
       creator: [
@@ -197,6 +227,18 @@ export class KarmaEngine {
           priority: 3,
           completed: false,
           xpReward: 30,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        },
+        {
+          id: 'creator-3',
+          title: 'Вдохновите других',
+          description: 'Поделитесь своим творческим процессом с кем-то еще',
+          category: 'relationships',
+          priority: 4,
+          completed: false,
+          xpReward: 35,
           createdAt: new Date(),
           source: 'auto-generated',
           beliefSystemSource: 'karma-type'
@@ -226,11 +268,173 @@ export class KarmaEngine {
           createdAt: new Date(),
           source: 'auto-generated',
           beliefSystemSource: 'karma-type'
+        },
+        {
+          id: 'leader-3',
+          title: 'Вдохновите команду',
+          description: 'Мотивируйте группу людей к достижению общей цели',
+          category: 'career',
+          priority: 4,
+          completed: false,
+          xpReward: 40,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        }
+      ],
+      teacher: [
+        {
+          id: 'teacher-1',
+          title: 'Поделитесь знанием',
+          description: 'Научите кого-то новому навыку или поделитесь опытом',
+          category: 'relationships',
+          priority: 4,
+          completed: false,
+          xpReward: 35,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        },
+        {
+          id: 'teacher-2',
+          title: 'Создайте обучающий контент',
+          description: 'Напишите статью или создайте видео на тему, в которой разбираетесь',
+          category: 'spirituality',
+          priority: 3,
+          completed: false,
+          xpReward: 30,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        }
+      ],
+      healer: [
+        {
+          id: 'healer-1',
+          title: 'Исцеляющее присутствие',
+          description: 'Проведите время с кем-то, кто нуждается в эмоциональной поддержке',
+          category: 'relationships',
+          priority: 5,
+          completed: false,
+          xpReward: 40,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        },
+        {
+          id: 'healer-2',
+          title: 'Энергетическое очищение',
+          description: 'Проведите ритуал очищения пространства или медитацию исцеления',
+          category: 'spirituality',
+          priority: 4,
+          completed: false,
+          xpReward: 35,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        }
+      ],
+      protector: [
+        {
+          id: 'protector-1',
+          title: 'Защитите уязвимых',
+          description: 'Встаньте на защиту того, кто не может защитить себя сам',
+          category: 'relationships',
+          priority: 5,
+          completed: false,
+          xpReward: 45,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        },
+        {
+          id: 'protector-2',
+          title: 'Создайте безопасность',
+          description: 'Обеспечьте безопасное пространство для группы или сообщества',
+          category: 'relationships',
+          priority: 4,
+          completed: false,
+          xpReward: 35,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        }
+      ],
+      seeker: [
+        {
+          id: 'seeker-1',
+          title: 'Глубокое исследование',
+          description: 'Изучите философский или духовный вопрос, который вас интересует',
+          category: 'spirituality',
+          priority: 4,
+          completed: false,
+          xpReward: 35,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
+        },
+        {
+          id: 'seeker-2',
+          title: 'Медитативная практика',
+          description: 'Проведите час в глубокой медитации или созерцании',
+          category: 'spirituality',
+          priority: 3,
+          completed: false,
+          xpReward: 30,
+          createdAt: new Date(),
+          source: 'auto-generated',
+          beliefSystemSource: 'karma-type'
         }
       ]
     };
 
     return karmaTasks[karmaType] || [];
+  }
+
+  private static generateUniversalKarmaTasks(karmaType: string): Task[] {
+    // Универсальные задачи, которые подходят всем типам кармы, но адаптированы под конкретный тип
+    const universalTasks: Task[] = [
+      {
+        id: `universal-meditation-${karmaType}`,
+        title: 'Кармическая медитация',
+        description: `Медитируйте 15 минут, фокусируясь на своем предназначении как ${this.getKarmaTypeName(karmaType)}`,
+        category: 'spirituality',
+        priority: 3,
+        completed: false,
+        xpReward: 25,
+        createdAt: new Date(),
+        source: 'auto-generated',
+        beliefSystemSource: 'karma-universal'
+      },
+      {
+        id: `universal-reflection-${karmaType}`,
+        title: 'Дневник кармы',
+        description: `Запишите, как вы проявили качества ${this.getKarmaTypeName(karmaType)} сегодня`,
+        category: 'spirituality',
+        priority: 2,
+        completed: false,
+        xpReward: 20,
+        createdAt: new Date(),
+        source: 'auto-generated',
+        beliefSystemSource: 'karma-universal'
+      }
+    ];
+
+    return universalTasks;
+  }
+
+  private static getKarmaTypeName(karmaType: string): string {
+    const names: { [key: string]: string } = {
+      helper: 'помощника людям',
+      independent: 'независимого духа',
+      creator: 'творца и созидателя',
+      protector: 'защитника и хранителя',
+      teacher: 'учителя и наставника',
+      healer: 'целителя душ',
+      leader: 'лидера и вдохновителя',
+      seeker: 'искателя истины'
+    };
+    return names[karmaType] || karmaType;
   }
 
   private static calculateBeliefScore(belief: BeliefSystem, profileData: any): number {
