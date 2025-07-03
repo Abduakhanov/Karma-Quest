@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Plus, Calendar, Heart, Tag, BookOpen, Edit3, Trash2, Search } from 'lucide-react';
 import { AppState, DiaryEntry } from '../types';
 
@@ -9,6 +10,7 @@ interface DiarySystemProps {
 }
 
 const DiarySystem: React.FC<DiarySystemProps> = ({ state, onAddEntry, onDeleteEntry }) => {
+  const { t } = useTranslation(['diary', 'common']);
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedEntry, setSelectedEntry] = useState<DiaryEntry | null>(null);
@@ -85,17 +87,15 @@ const DiarySystem: React.FC<DiarySystemProps> = ({ state, onAddEntry, onDeleteEn
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Karma Diary</h1>
-          <p className="text-gray-600 mb-6">
-            Record your thoughts, insights, and personal growth journey
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('title')}</h1>
+          <p className="text-gray-600 mb-6">{t('description')}</p>
           
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <div className="bg-white rounded-xl p-6 shadow-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total Entries</p>
+                  <p className="text-sm font-medium text-gray-600">{t('stats.totalEntries')}</p>
                   <p className="text-2xl font-bold text-purple-600">{state.diaryEntries.length}</p>
                 </div>
                 <BookOpen className="w-8 h-8 text-purple-600" />
@@ -105,7 +105,7 @@ const DiarySystem: React.FC<DiarySystemProps> = ({ state, onAddEntry, onDeleteEn
             <div className="bg-white rounded-xl p-6 shadow-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Average Mood</p>
+                  <p className="text-sm font-medium text-gray-600">{t('stats.averageMood')}</p>
                   <p className="text-2xl font-bold text-teal-600">
                     {moodEmojis[averageMood as keyof typeof moodEmojis]}
                   </p>
@@ -117,7 +117,7 @@ const DiarySystem: React.FC<DiarySystemProps> = ({ state, onAddEntry, onDeleteEn
             <div className="bg-white rounded-xl p-6 shadow-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">This Week</p>
+                  <p className="text-sm font-medium text-gray-600">{t('stats.thisWeek')}</p>
                   <p className="text-2xl font-bold text-green-600">
                     {state.diaryEntries.filter(entry => {
                       const entryDate = new Date(entry.date);
@@ -140,7 +140,7 @@ const DiarySystem: React.FC<DiarySystemProps> = ({ state, onAddEntry, onDeleteEn
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="text"
-                placeholder="Search entries..."
+                placeholder={t('search.placeholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
@@ -152,7 +152,7 @@ const DiarySystem: React.FC<DiarySystemProps> = ({ state, onAddEntry, onDeleteEn
               className="bg-gradient-to-r from-purple-600 to-teal-600 text-white px-6 py-2 rounded-lg font-semibold hover:scale-105 transition-transform flex items-center"
             >
               <Plus className="w-5 h-5 mr-2" />
-              New Entry
+              {t('newEntry')}
             </button>
           </div>
         </div>
@@ -160,32 +160,32 @@ const DiarySystem: React.FC<DiarySystemProps> = ({ state, onAddEntry, onDeleteEn
         {/* Add Entry Form */}
         {showAddForm && (
           <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">New Diary Entry</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('addForm.title')}</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Title
+                  {t('addForm.entryTitle')}
                 </label>
                 <input
                   type="text"
                   value={newEntry.title}
                   onChange={(e) => setNewEntry({...newEntry, title: e.target.value})}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  placeholder="How are you feeling today?"
+                  placeholder={t('addForm.placeholder.title')}
                   required
                 />
               </div>
               
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Content
+                  {t('addForm.content')}
                 </label>
                 <textarea
                   value={newEntry.content}
                   onChange={(e) => setNewEntry({...newEntry, content: e.target.value})}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   rows={6}
-                  placeholder="Write about your experiences, thoughts, and insights..."
+                  placeholder={t('addForm.placeholder.content')}
                   required
                 />
               </div>
@@ -193,7 +193,7 @@ const DiarySystem: React.FC<DiarySystemProps> = ({ state, onAddEntry, onDeleteEn
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Mood
+                    {t('addForm.mood')}
                   </label>
                   <div className="flex space-x-2">
                     {[1, 2, 3, 4, 5].map(mood => (
@@ -206,6 +206,7 @@ const DiarySystem: React.FC<DiarySystemProps> = ({ state, onAddEntry, onDeleteEn
                             ? 'border-purple-500 bg-purple-50 scale-110'
                             : 'border-gray-300 hover:border-purple-300'
                         }`}
+                        title={t(`mood.${mood}`)}
                       >
                         <span className="text-xl">{moodEmojis[mood as keyof typeof moodEmojis]}</span>
                       </button>
@@ -215,13 +216,13 @@ const DiarySystem: React.FC<DiarySystemProps> = ({ state, onAddEntry, onDeleteEn
                 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Tags
+                    {t('addForm.tags')}
                   </label>
                   <input
                     type="text"
                     onKeyDown={handleTagInput}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="Add tags (press Enter)"
+                    placeholder={t('addForm.placeholder.tags')}
                   />
                   <div className="flex flex-wrap gap-2 mt-2">
                     {newEntry.tags.map(tag => (
@@ -245,14 +246,14 @@ const DiarySystem: React.FC<DiarySystemProps> = ({ state, onAddEntry, onDeleteEn
                   type="submit"
                   className="bg-gradient-to-r from-purple-600 to-teal-600 text-white px-6 py-2 rounded-lg font-semibold hover:scale-105 transition-transform"
                 >
-                  Save Entry
+                  {t('common:buttons.save')} {t('common:navigation.diary')}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowAddForm(false)}
                   className="border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
                 >
-                  Cancel
+                  {t('common:buttons.cancel')}
                 </button>
               </div>
             </form>
@@ -271,7 +272,7 @@ const DiarySystem: React.FC<DiarySystemProps> = ({ state, onAddEntry, onDeleteEn
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">{entry.title}</h3>
                     <p className="text-sm text-gray-500">
-                      {new Date(entry.date).toLocaleDateString('en-US', {
+                      {new Date(entry.date).toLocaleDateString(undefined, {
                         weekday: 'long',
                         year: 'numeric',
                         month: 'long',
@@ -318,7 +319,7 @@ const DiarySystem: React.FC<DiarySystemProps> = ({ state, onAddEntry, onDeleteEn
               {entry.insights && (
                 <div className="mt-4 p-3 bg-purple-50 rounded-lg">
                   <p className="text-sm text-purple-700">
-                    <strong>AI Insight:</strong> {entry.insights}
+                    <strong>{t('insights.prefix')}</strong> {entry.insights}
                   </p>
                 </div>
               )}
@@ -328,11 +329,11 @@ const DiarySystem: React.FC<DiarySystemProps> = ({ state, onAddEntry, onDeleteEn
           {filteredEntries.length === 0 && (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📖</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No entries found</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('empty.title')}</h3>
               <p className="text-gray-600 mb-4">
                 {searchTerm 
-                  ? 'Try adjusting your search terms'
-                  : 'Start documenting your karma journey'
+                  ? t('empty.filtered')
+                  : t('empty.noEntries')
                 }
               </p>
               {!searchTerm && (
@@ -340,7 +341,7 @@ const DiarySystem: React.FC<DiarySystemProps> = ({ state, onAddEntry, onDeleteEn
                   onClick={() => setShowAddForm(true)}
                   className="bg-gradient-to-r from-purple-600 to-teal-600 text-white px-6 py-3 rounded-lg font-semibold hover:scale-105 transition-transform"
                 >
-                  Write Your First Entry
+                  {t('empty.addFirst')}
                 </button>
               )}
             </div>

@@ -1,0 +1,60 @@
+{
+  "steps": {
+    "welcome": "Welcome",
+    "beliefs": "Choose Systems",
+    "profile": "Your Profile",
+    "insight": "Karma Insight",
+    "quests": "Quest Builder"
+  },
+  "welcome": {
+    "title": "Welcome to KarmaQuest",
+    "description": "Embark on a personalized journey of self-discovery and growth. We'll help you unlock insights from the wisdom traditions you trust most.",
+    "cta": "Let's Begin"
+  },
+  "beliefs": {
+    "title": "Choose Your Belief Systems",
+    "description": "Select the systems that resonate with you. We'll use these to create your personalized karma analysis.",
+    "info": "You can select multiple systems and change them later",
+    "selected": "{{count}} system selected",
+    "selectedPlural": "{{count}} systems selected",
+    "continue": "Continue"
+  },
+  "profile": {
+    "title": "Tell Us About Yourself",
+    "description": "This information helps us create a more accurate karma analysis",
+    "avatar": "Choose Your Avatar",
+    "name": "What should we call you?",
+    "namePlaceholder": "Enter your name or nickname",
+    "birthDate": "Birth Date (Optional)",
+    "birthDateHelp": "Used for astrology and numerology calculations",
+    "timezone": "Timezone",
+    "privacy": {
+      "title": "Privacy & Data Usage",
+      "description": "Your personal information is used only to generate your karma analysis and improve your experience. We never share your data with third parties, and you can delete your account at any time."
+    },
+    "generateAnalysis": "Generate Karma Analysis"
+  },
+  "insight": {
+    "title": "Your Cosmic Profile",
+    "description": "Based on your selected belief systems, here's your personalized karma analysis",
+    "ready": "Ready to turn these insights into action?",
+    "createPlan": "Create Action Plan"
+  },
+  "quests": {
+    "title": "Build Your Quest Plan",
+    "description": "Choose from our AI-generated suggestions or create your own tasks. These will become your daily quests for personal growth.",
+    "selected": "{{count}} quest selected",
+    "selectedPlural": "{{count}} quests selected",
+    "ready": "ready to start",
+    "readyPlural": "ready to start",
+    "selectSome": "Select some quests to continue",
+    "perfect": "Perfect! {{count}} quests selected",
+    "randomPick": "Random Pick",
+    "customQuest": "Custom Quest",
+    "startJourney": "Start Your Journey"
+  },
+  "loading": {
+    "title": "Generating Your Karma Analysis",
+    "description": "Consulting the cosmic forces and analyzing your profile..."
+  }
+}

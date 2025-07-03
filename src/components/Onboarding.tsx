@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
 import { AppState, OnboardingData, KarmaAnalysis, Task } from '../types';
 import BeliefSystemSelector from './BeliefSystemSelector';
@@ -14,6 +15,7 @@ interface OnboardingProps {
 }
 
 const Onboarding: React.FC<OnboardingProps> = ({ state, onComplete, onBack }) => {
+  const { t } = useTranslation(['onboarding', 'common']);
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [onboardingData, setOnboardingData] = useState<OnboardingData>({
@@ -26,11 +28,11 @@ const Onboarding: React.FC<OnboardingProps> = ({ state, onComplete, onBack }) =>
   });
 
   const steps = [
-    { title: 'Welcome', description: 'Let\'s begin your journey' },
-    { title: 'Choose Systems', description: 'Select belief systems that resonate with you' },
-    { title: 'Your Profile', description: 'Tell us about yourself' },
-    { title: 'Karma Insight', description: 'Your personalized analysis' },
-    { title: 'Quest Builder', description: 'Create your action plan' }
+    { title: t('steps.welcome'), description: 'Let\'s begin your journey' },
+    { title: t('steps.beliefs'), description: 'Select belief systems that resonate with you' },
+    { title: t('steps.profile'), description: 'Tell us about yourself' },
+    { title: t('steps.insight'), description: 'Your personalized analysis' },
+    { title: t('steps.quests'), description: 'Create your action plan' }
   ];
 
   const handleNext = async () => {
@@ -88,10 +90,10 @@ const Onboarding: React.FC<OnboardingProps> = ({ state, onComplete, onBack }) =>
         <div className="text-center py-16">
           <Loader2 className="w-12 h-12 animate-spin text-purple-600 mx-auto mb-4" />
           <h3 className="text-xl font-semibold text-gray-900 mb-2">
-            Generating Your Karma Analysis
+            {t('loading.title')}
           </h3>
           <p className="text-gray-600">
-            Consulting the cosmic forces and analyzing your profile...
+            {t('loading.description')}
           </p>
         </div>
       );
@@ -103,18 +105,17 @@ const Onboarding: React.FC<OnboardingProps> = ({ state, onComplete, onBack }) =>
           <div className="text-center">
             <div className="text-6xl mb-6">🌟</div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Welcome to KarmaQuest
+              {t('welcome.title')}
             </h2>
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Embark on a personalized journey of self-discovery and growth. 
-              We'll help you unlock insights from the wisdom traditions you trust most.
+              {t('welcome.description')}
             </p>
             <div className="flex justify-center">
               <button
                 onClick={handleNext}
                 className="bg-gradient-to-r from-purple-600 to-teal-600 text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform flex items-center"
               >
-                Let's Begin
+                {t('welcome.cta')}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </button>
             </div>

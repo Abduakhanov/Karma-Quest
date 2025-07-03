@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Trophy, Star, Crown, Gift, Zap, Heart, Target, BookOpen, Users, Sparkles } from 'lucide-react';
 import { AppState, Achievement } from '../types';
 
@@ -8,6 +9,7 @@ interface RewardsHubProps {
 }
 
 const RewardsHub: React.FC<RewardsHubProps> = ({ state, achievements }) => {
+  const { t } = useTranslation(['rewards', 'common']);
   const [selectedTab, setSelectedTab] = useState<'achievements' | 'avatars' | 'stats'>('achievements');
   
   const { user } = state;
@@ -36,7 +38,7 @@ const RewardsHub: React.FC<RewardsHubProps> = ({ state, achievements }) => {
         <div>
           <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
             <Trophy className="w-5 h-5 mr-2 text-yellow-500" />
-            Unlocked Achievements
+            {t('achievements.unlocked')}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {unlockedAchievements.map(achievement => (
@@ -48,7 +50,7 @@ const RewardsHub: React.FC<RewardsHubProps> = ({ state, achievements }) => {
                     <p className="text-sm text-gray-600">{achievement.description}</p>
                     <div className="flex items-center mt-2">
                       <Star className="w-4 h-4 text-yellow-500 mr-1" />
-                      <span className="text-sm text-yellow-600">+{achievement.xpReward} XP</span>
+                      <span className="text-sm text-yellow-600">+{achievement.xpReward} {t('common:units.xp')}</span>
                       {achievement.unlockedAt && (
                         <span className="text-xs text-gray-500 ml-2">
                           {new Date(achievement.unlockedAt).toLocaleDateString()}
@@ -66,7 +68,7 @@ const RewardsHub: React.FC<RewardsHubProps> = ({ state, achievements }) => {
       <div>
         <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
           <Target className="w-5 h-5 mr-2 text-gray-500" />
-          Coming Soon
+          {t('achievements.locked')}
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {lockedAchievements.map(achievement => (
@@ -78,7 +80,7 @@ const RewardsHub: React.FC<RewardsHubProps> = ({ state, achievements }) => {
                   <p className="text-sm text-gray-500">{achievement.description}</p>
                   <div className="flex items-center mt-2">
                     <Star className="w-4 h-4 text-gray-400 mr-1" />
-                    <span className="text-sm text-gray-500">+{achievement.xpReward} XP</span>
+                    <span className="text-sm text-gray-500">+{achievement.xpReward} {t('common:units.xp')}</span>
                   </div>
                 </div>
               </div>
@@ -94,7 +96,7 @@ const RewardsHub: React.FC<RewardsHubProps> = ({ state, achievements }) => {
       <div>
         <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
           <Sparkles className="w-5 h-5 mr-2 text-purple-500" />
-          Avatar Collection
+          {t('avatars.title')}
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {avatarOptions.map(avatar => (
@@ -110,11 +112,11 @@ const RewardsHub: React.FC<RewardsHubProps> = ({ state, achievements }) => {
                 <h4 className="font-medium text-gray-900 text-sm">{avatar.name}</h4>
                 <div className="mt-2">
                   {avatar.cost === 0 ? (
-                    <span className="text-xs text-green-600">Free</span>
+                    <span className="text-xs text-green-600">{t('avatars.free')}</span>
                   ) : avatar.unlocked ? (
-                    <span className="text-xs text-purple-600">Unlocked</span>
+                    <span className="text-xs text-purple-600">{t('avatars.unlocked')}</span>
                   ) : (
-                    <span className="text-xs text-gray-500">{avatar.cost} XP</span>
+                    <span className="text-xs text-gray-500">{t('avatars.cost', { cost: avatar.cost })}</span>
                   )}
                 </div>
               </div>
@@ -135,10 +137,10 @@ const RewardsHub: React.FC<RewardsHubProps> = ({ state, achievements }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-gray-900">Level Progress</h3>
+            <h3 className="font-semibold text-gray-900">{t('stats.levelProgress')}</h3>
             <Crown className="w-5 h-5 text-purple-600" />
           </div>
-          <div className="text-3xl font-bold text-purple-600 mb-2">Level {user.level}</div>
+          <div className="text-3xl font-bold text-purple-600 mb-2">{t('common:units.level')} {user.level}</div>
           <div className="w-full bg-white rounded-full h-2 mb-2">
             <div 
               className="h-2 rounded-full bg-gradient-to-r from-purple-600 to-teal-600"
@@ -146,72 +148,72 @@ const RewardsHub: React.FC<RewardsHubProps> = ({ state, achievements }) => {
             />
           </div>
           <div className="text-sm text-gray-600">
-            {user.xp} / {nextLevelXP} XP to next level
+            {user.xp} / {nextLevelXP} {t('common:units.xp')} to next level
           </div>
         </div>
 
         <div className="bg-gradient-to-r from-teal-50 to-teal-100 rounded-xl p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-gray-900">Tasks Completed</h3>
+            <h3 className="font-semibold text-gray-900">{t('stats.tasksCompleted')}</h3>
             <Target className="w-5 h-5 text-teal-600" />
           </div>
           <div className="text-3xl font-bold text-teal-600 mb-2">
             {state.tasks.filter(t => t.completed).length}
           </div>
           <div className="text-sm text-gray-600">
-            {Math.round((state.tasks.filter(t => t.completed).length / Math.max(state.tasks.length, 1)) * 100)}% completion rate
+            {Math.round((state.tasks.filter(t => t.completed).length / Math.max(state.tasks.length, 1)) * 100)}% {t('stats.completionRate')}
           </div>
         </div>
 
         <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-gray-900">Diary Entries</h3>
+            <h3 className="font-semibold text-gray-900">{t('stats.diaryEntries')}</h3>
             <BookOpen className="w-5 h-5 text-green-600" />
           </div>
           <div className="text-3xl font-bold text-green-600 mb-2">
             {state.diaryEntries.length}
           </div>
           <div className="text-sm text-gray-600">
-            Personal reflections recorded
+            {t('stats.personalReflections')}
           </div>
         </div>
 
         <div className="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-xl p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-gray-900">Achievements</h3>
+            <h3 className="font-semibold text-gray-900">{t('stats.achievements')}</h3>
             <Trophy className="w-5 h-5 text-yellow-600" />
           </div>
           <div className="text-3xl font-bold text-yellow-600 mb-2">
             {unlockedAchievements.length}
           </div>
           <div className="text-sm text-gray-600">
-            Out of {achievements.length} total
+            {t('stats.outOf')} {achievements.length} {t('stats.total')}
           </div>
         </div>
 
         <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-gray-900">Belief Systems</h3>
+            <h3 className="font-semibold text-gray-900">{t('stats.beliefSystems')}</h3>
             <Heart className="w-5 h-5 text-orange-600" />
           </div>
           <div className="text-3xl font-bold text-orange-600 mb-2">
             {user.beliefSystems.length}
           </div>
           <div className="text-sm text-gray-600">
-            Active systems
+            {t('stats.activeSystems')}
           </div>
         </div>
 
         <div className="bg-gradient-to-r from-pink-50 to-pink-100 rounded-xl p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-gray-900">Journey Started</h3>
+            <h3 className="font-semibold text-gray-900">{t('stats.journeyStarted')}</h3>
             <Zap className="w-5 h-5 text-pink-600" />
           </div>
           <div className="text-3xl font-bold text-pink-600 mb-2">
             {Math.ceil((Date.now() - user.joinDate.getTime()) / (1000 * 60 * 60 * 24))}
           </div>
           <div className="text-sm text-gray-600">
-            Days ago
+            {t('stats.daysAgo')}
           </div>
         </div>
       </div>
@@ -223,10 +225,8 @@ const RewardsHub: React.FC<RewardsHubProps> = ({ state, achievements }) => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Rewards Hub</h1>
-          <p className="text-gray-600">
-            Track your progress, unlock achievements, and customize your journey
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('title')}</h1>
+          <p className="text-gray-600">{t('description')}</p>
         </div>
 
         {/* User Level Card */}
@@ -236,18 +236,18 @@ const RewardsHub: React.FC<RewardsHubProps> = ({ state, achievements }) => {
               <div className="text-4xl">{user.avatar}</div>
               <div>
                 <h2 className="text-2xl font-bold">{user.name}</h2>
-                <p className="text-purple-100">Level {user.level} • {user.xp} Total XP</p>
+                <p className="text-purple-100">{t('common:units.level')} {user.level} • {user.xp} {t('common:units.xp')} {t('stats.total')}</p>
               </div>
             </div>
             <div className="text-right">
               <div className="text-3xl font-bold">{user.level}</div>
-              <div className="text-sm text-purple-100">Current Level</div>
+              <div className="text-sm text-purple-100">{t('common:units.level')}</div>
             </div>
           </div>
           
           <div className="mt-4">
             <div className="flex justify-between text-sm mb-2">
-              <span>Progress to Level {user.level + 1}</span>
+              <span>{t('stats.levelProgress')} {user.level + 1}</span>
               <span>{Math.round(levelProgress * 100)}%</span>
             </div>
             <div className="w-full bg-white/20 rounded-full h-2">
@@ -264,9 +264,9 @@ const RewardsHub: React.FC<RewardsHubProps> = ({ state, achievements }) => {
           <div className="border-b border-gray-200">
             <nav className="flex space-x-8 px-6">
               {[
-                { id: 'achievements', label: 'Achievements', icon: Trophy },
-                { id: 'avatars', label: 'Avatars', icon: Crown },
-                { id: 'stats', label: 'Statistics', icon: Star }
+                { id: 'achievements', label: t('tabs.achievements'), icon: Trophy },
+                { id: 'avatars', label: t('tabs.avatars'), icon: Crown },
+                { id: 'stats', label: t('tabs.statistics'), icon: Star }
               ].map(tab => {
                 const Icon = tab.icon;
                 return (
@@ -298,12 +298,10 @@ const RewardsHub: React.FC<RewardsHubProps> = ({ state, achievements }) => {
         <div className="bg-gradient-to-r from-purple-100 to-teal-100 rounded-xl p-6">
           <div className="text-center">
             <Gift className="w-12 h-12 mx-auto mb-4 text-purple-600" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Support KarmaQuest</h3>
-            <p className="text-gray-600 mb-4">
-              Help us continue developing this platform and unlock exclusive rewards
-            </p>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('support.title')}</h3>
+            <p className="text-gray-600 mb-4">{t('support.description')}</p>
             <button className="bg-gradient-to-r from-purple-600 to-teal-600 text-white px-8 py-3 rounded-lg font-semibold hover:scale-105 transition-transform">
-              Make a Donation
+              {t('support.donate')}
             </button>
           </div>
         </div>

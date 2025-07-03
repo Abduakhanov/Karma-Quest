@@ -1,0 +1,42 @@
+{
+  "title": "Karma Diary",
+  "description": "Record your thoughts, insights, and personal growth journey",
+  "newEntry": "New Entry",
+  "stats": {
+    "totalEntries": "Total Entries",
+    "averageMood": "Average Mood",
+    "thisWeek": "This Week"
+  },
+  "search": {
+    "placeholder": "Search entries..."
+  },
+  "addForm": {
+    "title": "New Diary Entry",
+    "entryTitle": "Title",
+    "content": "Content",
+    "mood": "Mood",
+    "tags": "Tags",
+    "placeholder": {
+      "title": "How are you feeling today?",
+      "content": "Write about your experiences, thoughts, and insights...",
+      "tags": "Add tags (press Enter)"
+    }
+  },
+  "mood": {
+    "1": "Very sad",
+    "2": "Sad",
+    "3": "Neutral", 
+    "4": "Good",
+    "5": "Excellent"
+  },
+  "insights": {
+    "title": "AI Insight",
+    "prefix": "AI Insight:"
+  },
+  "empty": {
+    "title": "No entries found",
+    "filtered": "Try adjusting your search terms",
+    "noEntries": "Start documenting your karma journey",
+    "addFirst": "Write Your First Entry"
+  }
+}

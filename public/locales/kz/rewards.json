@@ -1,0 +1,40 @@
+{
+  "title": "Сыйлықтар Орталығы",
+  "description": "Прогрессті қадағалаңыз, жетістіктерді ашыңыз және саяхатыңызды теңшеңіз",
+  "tabs": {
+    "achievements": "Жетістіктер",
+    "avatars": "Аватарлар",
+    "statistics": "Статистика"
+  },
+  "achievements": {
+    "unlocked": "Ашылған Жетістіктер",
+    "locked": "Жақында Пайда Болады",
+    "unlockedAt": "Ашылды"
+  },
+  "avatars": {
+    "title": "Аватар Жинағы",
+    "unlocked": "Ашылды",
+    "locked": "Бұғатталған",
+    "free": "Тегін",
+    "cost": "{{cost}} XP"
+  },
+  "stats": {
+    "levelProgress": "Деңгей Прогрессі",
+    "tasksCompleted": "Орындалған Тапсырмалар",
+    "diaryEntries": "Күнделік Жазбалары",
+    "achievements": "Жетістіктер",
+    "beliefSystems": "Сенім Жүйелері",
+    "journeyStarted": "Саяхат Басталды",
+    "daysAgo": "күн бұрын",
+    "completionRate": "орындау пайызы",
+    "personalReflections": "жеке ойлар жазылды",
+    "outOf": "ішінен",
+    "total": "барлығы",
+    "activeSystems": "белсенді жүйелер"
+  },
+  "support": {
+    "title": "KarmaQuest-ті Қолдаңыз",
+    "description": "Бұл платформаны дамытуды жалғастыруға және эксклюзивті сыйлықтарды ашуға көмектесіңіз",
+    "donate": "Қайырымдылық Жасау"
+  }
+}

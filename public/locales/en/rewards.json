@@ -1,0 +1,40 @@
+{
+  "title": "Rewards Hub",
+  "description": "Track your progress, unlock achievements, and customize your journey",
+  "tabs": {
+    "achievements": "Achievements",
+    "avatars": "Avatars",
+    "statistics": "Statistics"
+  },
+  "achievements": {
+    "unlocked": "Unlocked Achievements",
+    "locked": "Coming Soon",
+    "unlockedAt": "Unlocked"
+  },
+  "avatars": {
+    "title": "Avatar Collection",
+    "unlocked": "Unlocked",
+    "locked": "Locked",
+    "free": "Free",
+    "cost": "{{cost}} XP"
+  },
+  "stats": {
+    "levelProgress": "Level Progress",
+    "tasksCompleted": "Tasks Completed",
+    "diaryEntries": "Diary Entries",
+    "achievements": "Achievements",
+    "beliefSystems": "Belief Systems",
+    "journeyStarted": "Journey Started",
+    "daysAgo": "days ago",
+    "completionRate": "completion rate",
+    "personalReflections": "personal reflections recorded",
+    "outOf": "out of",
+    "total": "total",
+    "activeSystems": "active systems"
+  },
+  "support": {
+    "title": "Support KarmaQuest",
+    "description": "Help us continue developing this platform and unlock exclusive rewards",
+    "donate": "Make a Donation"
+  }
+}

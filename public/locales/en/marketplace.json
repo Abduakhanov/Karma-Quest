@@ -1,0 +1,40 @@
+{
+  "title": "Expert Marketplace",
+  "description": "Connect with certified karma coaches and spiritual guides",
+  "becomeExpert": "Become an Expert",
+  "bookSession": "Book Session",
+  "reviews": "Reviews",
+  "rating": "Rating",
+  "search": {
+    "placeholder": "Search experts...",
+    "allSpecialties": "All Specialties",
+    "allPrices": "All Prices",
+    "moreFilters": "More Filters"
+  },
+  "expert": {
+    "verified": "Verified Expert",
+    "responseTime": "Response time",
+    "completedSessions": "sessions",
+    "languages": "Languages:",
+    "hourlyRate": "hour"
+  },
+  "trustSafety": {
+    "title": "Trust & Safety",
+    "verifiedExperts": {
+      "title": "Verified Experts",
+      "description": "All experts are thoroughly vetted and certified"
+    },
+    "secureMessaging": {
+      "title": "Secure Messaging",
+      "description": "End-to-end encrypted communication"
+    },
+    "moneyBack": {
+      "title": "Money-Back Guarantee",
+      "description": "100% satisfaction guaranteed or full refund"
+    }
+  },
+  "empty": {
+    "title": "No experts found",
+    "description": "Try adjusting your search criteria"
+  }
+}

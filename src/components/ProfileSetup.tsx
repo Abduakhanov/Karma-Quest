@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Calendar, Clock, User, Globe } from 'lucide-react';
 
 interface ProfileSetupProps {
@@ -18,6 +19,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({
   onNext,
   onBack
 }) => {
+  const { t } = useTranslation(['onboarding', 'common']);
   const [formData, setFormData] = useState(profileData);
   const [selectedAvatar, setSelectedAvatar] = useState('🧘‍♀️');
 
@@ -47,10 +49,10 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({
     <div className="max-w-2xl mx-auto">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">
-          Tell Us About Yourself
+          {t('profile.title')}
         </h2>
         <p className="text-xl text-gray-600">
-          This information helps us create a more accurate karma analysis
+          {t('profile.description')}
         </p>
       </div>
 
@@ -59,7 +61,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({
         <div className="bg-white rounded-xl p-6 shadow-lg">
           <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
             <User className="w-5 h-5 mr-2 text-purple-600" />
-            Choose Your Avatar
+            {t('profile.avatar')}
           </h3>
           <div className="grid grid-cols-8 gap-3">
             {avatarOptions.map((avatar) => (
@@ -89,21 +91,21 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                What should we call you? *
+                {t('profile.name')} *
               </label>
               <input
                 type="text"
                 value={formData.name}
                 onChange={(e) => updateFormData({ name: e.target.value })}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                placeholder="Enter your name or nickname"
+                placeholder={t('profile.namePlaceholder')}
                 required
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Birth Date (Optional)
+                {t('profile.birthDate')}
               </label>
               <div className="relative">
                 <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -117,13 +119,13 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({
                 />
               </div>
               <p className="text-xs text-gray-500 mt-1">
-                Used for astrology and numerology calculations
+                {t('profile.birthDateHelp')}
               </p>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Timezone *
+                {t('profile.timezone')} *
               </label>
               <div className="relative">
                 <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -144,10 +146,9 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({
 
         {/* Privacy Notice */}
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h4 className="font-medium text-blue-900 mb-2">Privacy & Data Usage</h4>
+          <h4 className="font-medium text-blue-900 mb-2">{t('profile.privacy.title')}</h4>
           <p className="text-sm text-blue-700">
-            Your personal information is used only to generate your karma analysis and improve your experience. 
-            We never share your data with third parties, and you can delete your account at any time.
+            {t('profile.privacy.description')}
           </p>
         </div>
 
@@ -158,7 +159,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({
             onClick={onBack}
             className="flex items-center text-gray-600 hover:text-gray-900 font-medium"
           >
-            ← Back
+            ← {t('common:buttons.back')}
           </button>
 
           <button
@@ -170,7 +171,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
-            Generate Karma Analysis →
+            {t('profile.generateAnalysis')} →
           </button>
         </div>
       </form>
