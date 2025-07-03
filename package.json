@@ -1,7 +1,7 @@
 {
   "name": "karmaquest-platform",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.5.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,7 +19,13 @@
     "i18next-http-backend": "^2.4.2",
     "date-fns": "^2.30.0",
     "framer-motion": "^10.16.16",
-    "ethers": "^6.8.1"
+    "ethers": "^6.8.1",
+    "@stablelib/aes-gcm": "^1.0.1",
+    "@stablelib/random": "^1.0.2",
+    "@stablelib/base64": "^1.0.1",
+    "@stablelib/utf8": "^1.0.1",
+    "tweetnacl": "^1.0.3",
+    "siwe": "^2.1.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
