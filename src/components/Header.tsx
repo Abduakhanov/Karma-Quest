@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { User, Crown, Menu, X } from 'lucide-react';
 import { AppState } from '../types';
+import LanguageSwitcher from './LanguageSwitcher';
 
 interface HeaderProps {
   state: AppState;
@@ -8,6 +10,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ state, onNavigate }) => {
+  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   if (state.currentPage === 'landing') {
@@ -23,17 +26,26 @@ const Header: React.FC<HeaderProps> = ({ state, onNavigate }) => {
             </div>
             
             <nav className="hidden md:flex space-x-8">
-              <a href="#features" className="text-gray-700 hover:text-purple-600 transition-colors">Features</a>
-              <a href="#how-it-works" className="text-gray-700 hover:text-purple-600 transition-colors">How It Works</a>
-              <a href="#pricing" className="text-gray-700 hover:text-purple-600 transition-colors">Pricing</a>
+              <a href="#features" className="text-gray-700 hover:text-purple-600 transition-colors">
+                {t('landing.features.analysis.title')}
+              </a>
+              <a href="#how-it-works" className="text-gray-700 hover:text-purple-600 transition-colors">
+                How It Works
+              </a>
+              <a href="#pricing" className="text-gray-700 hover:text-purple-600 transition-colors">
+                Pricing
+              </a>
             </nav>
 
-            <button
-              onClick={() => onNavigate('onboarding')}
-              className="bg-gradient-to-r from-purple-600 to-teal-600 text-white px-6 py-2 rounded-full hover:scale-105 transition-transform"
-            >
-              Start Your Journey
-            </button>
+            <div className="flex items-center space-x-4">
+              <LanguageSwitcher />
+              <button
+                onClick={() => onNavigate('onboarding')}
+                className="bg-gradient-to-r from-purple-600 to-teal-600 text-white px-6 py-2 rounded-full hover:scale-105 transition-transform"
+              >
+                {t('landing.cta')}
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -61,7 +73,7 @@ const Header: React.FC<HeaderProps> = ({ state, onNavigate }) => {
                   state.currentPage === 'dashboard' ? 'text-purple-600' : 'text-gray-700 hover:text-purple-600'
                 }`}
               >
-                Dashboard
+                {t('navigation.dashboard')}
               </button>
               <button
                 onClick={() => onNavigate('tasks')}
@@ -69,7 +81,7 @@ const Header: React.FC<HeaderProps> = ({ state, onNavigate }) => {
                   state.currentPage === 'tasks' ? 'text-purple-600' : 'text-gray-700 hover:text-purple-600'
                 }`}
               >
-                Tasks
+                {t('navigation.tasks')}
               </button>
               <button
                 onClick={() => onNavigate('diary')}
@@ -77,7 +89,7 @@ const Header: React.FC<HeaderProps> = ({ state, onNavigate }) => {
                   state.currentPage === 'diary' ? 'text-purple-600' : 'text-gray-700 hover:text-purple-600'
                 }`}
               >
-                Diary
+                {t('navigation.diary')}
               </button>
               <button
                 onClick={() => onNavigate('rewards')}
@@ -85,15 +97,33 @@ const Header: React.FC<HeaderProps> = ({ state, onNavigate }) => {
                   state.currentPage === 'rewards' ? 'text-purple-600' : 'text-gray-700 hover:text-purple-600'
                 }`}
               >
-                Rewards
+                {t('navigation.rewards')}
+              </button>
+              <button
+                onClick={() => onNavigate('marketplace')}
+                className={`text-sm font-medium transition-colors ${
+                  state.currentPage === 'marketplace' ? 'text-purple-600' : 'text-gray-700 hover:text-purple-600'
+                }`}
+              >
+                {t('navigation.marketplace')}
+              </button>
+              <button
+                onClick={() => onNavigate('web3')}
+                className={`text-sm font-medium transition-colors ${
+                  state.currentPage === 'web3' ? 'text-purple-600' : 'text-gray-700 hover:text-purple-600'
+                }`}
+              >
+                Web3
               </button>
             </nav>
           </div>
 
           <div className="flex items-center space-x-4">
+            <LanguageSwitcher />
+            
             <div className="flex items-center space-x-2 bg-gradient-to-r from-purple-50 to-teal-50 px-3 py-1 rounded-full">
               <Crown className="w-4 h-4 text-yellow-500" />
-              <span className="text-sm font-medium">Level {state.user.level}</span>
+              <span className="text-sm font-medium">{t('navigation.profile')} {state.user.level}</span>
               <span className="text-xs text-gray-600">({state.user.xp} XP)</span>
             </div>
             
@@ -115,42 +145,25 @@ const Header: React.FC<HeaderProps> = ({ state, onNavigate }) => {
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t border-purple-100">
           <nav className="px-4 py-2 space-y-1">
-            <button
-              onClick={() => {
-                onNavigate('dashboard');
-                setIsMenuOpen(false);
-              }}
-              className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg"
-            >
-              Dashboard
-            </button>
-            <button
-              onClick={() => {
-                onNavigate('tasks');
-                setIsMenuOpen(false);
-              }}
-              className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg"
-            >
-              Tasks
-            </button>
-            <button
-              onClick={() => {
-                onNavigate('diary');
-                setIsMenuOpen(false);
-              }}
-              className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg"
-            >
-              Diary
-            </button>
-            <button
-              onClick={() => {
-                onNavigate('rewards');
-                setIsMenuOpen(false);
-              }}
-              className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg"
-            >
-              Rewards
-            </button>
+            {[
+              { key: 'dashboard', page: 'dashboard' as const },
+              { key: 'tasks', page: 'tasks' as const },
+              { key: 'diary', page: 'diary' as const },
+              { key: 'rewards', page: 'rewards' as const },
+              { key: 'marketplace', page: 'marketplace' as const },
+              { key: 'web3', page: 'web3' as const }
+            ].map(({ key, page }) => (
+              <button
+                key={key}
+                onClick={() => {
+                  onNavigate(page);
+                  setIsMenuOpen(false);
+                }}
+                className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg"
+              >
+                {t(`navigation.${key}`)}
+              </button>
+            ))}
           </nav>
         </div>
       )}

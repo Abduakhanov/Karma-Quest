@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Header from './components/Header';
 import LandingPage from './components/LandingPage';
 import Onboarding from './components/Onboarding';
@@ -6,11 +7,17 @@ import Dashboard from './components/Dashboard';
 import TaskManager from './components/TaskManager';
 import DiarySystem from './components/DiarySystem';
 import RewardsHub from './components/RewardsHub';
+import ExpertMarketplace from './components/ExpertMarketplace';
+import Web3Dashboard from './components/Web3Dashboard';
+import PWAInstallPrompt from './components/PWAInstallPrompt';
+import OfflineIndicator from './components/OfflineIndicator';
 import { AppState, Task, DiaryEntry, OnboardingData } from './types';
 import { mockUser, mockKarmaAnalysis, achievements } from './data/mockData';
 import { KarmaEngine } from './utils/karmaEngine';
+import { offlineStorage } from './utils/offlineStorage';
 
 const App: React.FC = () => {
+  const { i18n } = useTranslation();
   const [state, setState] = useState<AppState>({
     user: null,
     currentPage: 'landing',
@@ -44,47 +51,89 @@ const App: React.FC = () => {
     isLoading: false
   });
 
-  // Load saved state from localStorage on mount
+  // Initialize offline storage and load saved data
   useEffect(() => {
-    const savedState = localStorage.getItem('karmaquest-state');
-    if (savedState) {
-      try {
-        const parsed = JSON.parse(savedState);
-        setState(prev => ({
-          ...prev,
-          ...parsed,
-          // Convert date strings back to Date objects
-          user: parsed.user ? {
-            ...parsed.user,
-            joinDate: new Date(parsed.user.joinDate),
-            birthDate: parsed.user.birthDate ? new Date(parsed.user.birthDate) : undefined
-          } : null,
-          diaryEntries: parsed.diaryEntries?.map((entry: any) => ({
-            ...entry,
-            date: new Date(entry.date)
-          })) || [],
-          tasks: parsed.tasks?.map((task: any) => ({
-            ...task,
-            createdAt: new Date(task.createdAt),
-            dueDate: task.dueDate ? new Date(task.dueDate) : undefined
-          })) || [],
-          achievements: parsed.achievements?.map((achievement: any) => ({
-            ...achievement,
-            unlockedAt: achievement.unlockedAt ? new Date(achievement.unlockedAt) : undefined
-          })) || achievements
-        }));
-      } catch (error) {
-        console.error('Failed to load saved state:', error);
+    const initializeApp = async () => {
+      await offlineStorage.init();
+      
+      // Load saved state from localStorage
+      const savedState = localStorage.getItem('karmaquest-state');
+      if (savedState) {
+        try {
+          const parsed = JSON.parse(savedState);
+          setState(prev => ({
+            ...prev,
+            ...parsed,
+            // Convert date strings back to Date objects
+            user: parsed.user ? {
+              ...parsed.user,
+              joinDate: new Date(parsed.user.joinDate),
+              birthDate: parsed.user.birthDate ? new Date(parsed.user.birthDate) : undefined
+            } : null,
+            diaryEntries: parsed.diaryEntries?.map((entry: any) => ({
+              ...entry,
+              date: new Date(entry.date)
+            })) || [],
+            tasks: parsed.tasks?.map((task: any) => ({
+              ...task,
+              createdAt: new Date(task.createdAt),
+              dueDate: task.dueDate ? new Date(task.dueDate) : undefined
+            })) || [],
+            achievements: parsed.achievements?.map((achievement: any) => ({
+              ...achievement,
+              unlockedAt: achievement.unlockedAt ? new Date(achievement.unlockedAt) : undefined
+            })) || achievements
+          }));
+        } catch (error) {
+          console.error('Failed to load saved state:', error);
+        }
       }
-    }
+
+      // Load offline data if available
+      try {
+        const offlineTasks = await offlineStorage.getTasks();
+        const offlineDiaryEntries = await offlineStorage.getDiaryEntries();
+        
+        if (offlineTasks.length > 0 || offlineDiaryEntries.length > 0) {
+          setState(prev => ({
+            ...prev,
+            tasks: offlineTasks.length > 0 ? offlineTasks : prev.tasks,
+            diaryEntries: offlineDiaryEntries.length > 0 ? offlineDiaryEntries : prev.diaryEntries
+          }));
+        }
+      } catch (error) {
+        console.error('Failed to load offline data:', error);
+      }
+    };
+
+    initializeApp();
   }, []);
 
-  // Save state to localStorage whenever it changes
+  // Save state to localStorage and offline storage whenever it changes
   useEffect(() => {
     if (state.user) {
       localStorage.setItem('karmaquest-state', JSON.stringify(state));
+      
+      // Save to offline storage
+      offlineStorage.saveTasks(state.tasks);
+      offlineStorage.saveDiaryEntries(state.diaryEntries);
     }
   }, [state]);
+
+  // Set up language change handler
+  useEffect(() => {
+    const handleLanguageChange = (lng: string) => {
+      document.documentElement.lang = lng;
+      document.documentElement.dir = lng === 'ar' ? 'rtl' : 'ltr';
+    };
+
+    i18n.on('languageChanged', handleLanguageChange);
+    handleLanguageChange(i18n.language);
+
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange);
+    };
+  }, [i18n]);
 
   const handleNavigation = (page: AppState['currentPage']) => {
     setState(prev => ({ ...prev, currentPage: page }));
@@ -152,7 +201,7 @@ const App: React.FC = () => {
     }
   };
 
-  const handleTaskToggle = (taskId: string) => {
+  const handleTaskToggle = async (taskId: string) => {
     setState(prev => {
       const task = prev.tasks.find(t => t.id === taskId);
       if (!task) return prev;
@@ -187,28 +236,37 @@ const App: React.FC = () => {
         });
       }
 
-      return {
+      const newState = {
         ...prev,
         tasks: updatedTasks,
         user: updatedUser,
         achievements: updatedAchievements
       };
+
+      // Save to offline storage
+      offlineStorage.saveTasks(updatedTasks);
+
+      return newState;
     });
   };
 
-  const handleAddTask = (taskData: Omit<Task, 'id' | 'createdAt'>) => {
+  const handleAddTask = async (taskData: Omit<Task, 'id' | 'createdAt'>) => {
     const newTask: Task = {
       ...taskData,
       id: Date.now().toString(),
       createdAt: new Date()
     };
+    
     setState(prev => ({
       ...prev,
       tasks: [...prev.tasks, newTask]
     }));
+
+    // Save to offline storage
+    await offlineStorage.saveTask(newTask);
   };
 
-  const handleAddDiaryEntry = (entryData: Omit<DiaryEntry, 'id'>) => {
+  const handleAddDiaryEntry = async (entryData: Omit<DiaryEntry, 'id'>) => {
     const newEntry: DiaryEntry = {
       ...entryData,
       id: Date.now().toString()
@@ -234,6 +292,9 @@ const App: React.FC = () => {
         achievements: updatedAchievements
       };
     });
+
+    // Save to offline storage
+    await offlineStorage.saveDiaryEntry(newEntry);
   };
 
   const handleDeleteDiaryEntry = (entryId: string) => {
@@ -281,6 +342,10 @@ const App: React.FC = () => {
         );
       case 'rewards':
         return <RewardsHub state={state} achievements={state.achievements} />;
+      case 'marketplace':
+        return <ExpertMarketplace />;
+      case 'web3':
+        return <Web3Dashboard />;
       default:
         return <LandingPage onNavigate={handleNavigation} />;
     }
@@ -290,6 +355,8 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-teal-50">
       <Header state={state} onNavigate={handleNavigation} />
       {renderCurrentPage()}
+      <PWAInstallPrompt />
+      <OfflineIndicator />
     </div>
   );
 };
