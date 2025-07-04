@@ -38,7 +38,23 @@
     "title": "Your Cosmic Profile",
     "description": "Based on your selected belief systems, here's your personalized karma analysis",
     "ready": "Ready to turn these insights into action?",
-    "createPlan": "Create Action Plan"
+    "createPlan": "Create Action Plan",
+    "karmaReady": "Your karma is determined!",
+    "primaryKarma": "Your primary karma",
+    "secondaryKarma": "Secondary karma",
+    "confidence": "Confidence in result",
+    "spiritualPath": "Your Spiritual Path",
+    "lifeLesson": "Life Lesson",
+    "spiritualGift": "Spiritual Gift",
+    "energyProfile": "Energy Profile",
+    "element": "Element",
+    "primaryChakra": "Primary Chakra",
+    "compatibleTypes": "Compatible karma types",
+    "strengths": "Your Strengths",
+    "challenges": "Areas for Growth",
+    "recommendations": "Development Recommendations",
+    "beliefInsights": "Belief System Insights",
+    "continueToQuests": "Continue to Quest Creation"
   },
   "quests": {
     "title": "Build Your Quest Plan",
@@ -56,5 +72,50 @@
   "loading": {
     "title": "Generating Your Karma Analysis",
     "description": "Consulting the cosmic forces and analyzing your profile..."
+  },
+  "test": {
+    "title": "Deep Karma Analysis",
+    "description": "This extended test will help accurately determine your karmic purpose through {{system}}",
+    "systems": {
+      "astrology": "Astrology",
+      "psychology": "Psychology",
+      "chakras": "Chakras",
+      "numerology": "Numerology",
+      "tarot": "Tarot"
+    },
+    "progress": {
+      "question": "Question",
+      "of": "of",
+      "minLeft": "min left",
+      "completed": "completed"
+    },
+    "keyQuestion": "Key Question",
+    "types": {
+      "scenario": "Scenario",
+      "choice": "Choice",
+      "scale": "Scale",
+      "priority": "Priorities"
+    },
+    "scale": {
+      "notImportant": "1 - Not important at all",
+      "neutral": "5 - Neutral",
+      "veryImportant": "10 - Extremely important",
+      "yourAnswer": "Your answer"
+    },
+    "priority": {
+      "instruction": "Instructions",
+      "description": "Select and prioritize up to {{max}} options. Click on an option to add it to your priority list.",
+      "selected": "Selected",
+      "yourPriorities": "Your priorities"
+    },
+    "backToProfile": "Back to profile",
+    "previousQuestion": "Previous question",
+    "selectAtLeastOne": "Select at least one option",
+    "selectToContinue": "Select an answer to continue",
+    "completeAnalysis": "Complete analysis",
+    "nextQuestion": "Next question",
+    "confidential": "Your answers are confidential",
+    "noWrongAnswers": "No right or wrong answers",
+    "answerIntuitively": "Answer intuitively"
   }
 }
