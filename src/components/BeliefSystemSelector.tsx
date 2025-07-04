@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Check, Filter, Star, Info } from 'lucide-react';
 import { BeliefSystem } from '../types';
 import { beliefSystems } from '../data/mockData';
@@ -17,7 +16,6 @@ const BeliefSystemSelector: React.FC<BeliefSystemSelectorProps> = ({
   onNext,
   onBack
 }) => {
-  const { t } = useTranslation(['onboarding', 'common']);
   const [filter, setFilter] = useState<'all' | 'popular' | 'spiritual' | 'psychological' | 'scientific' | 'traditional'>('popular');
   const [showInfo, setShowInfo] = useState<string | null>(null);
 
@@ -46,15 +44,15 @@ const BeliefSystemSelector: React.FC<BeliefSystemSelectorProps> = ({
     <div className="max-w-4xl mx-auto">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">
-          {t('beliefs.title')}
+          Choose Your Belief Systems
         </h2>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
-          {t('beliefs.description')}
+          Select the systems that resonate with you for personalized karma insights
         </p>
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-md mx-auto">
           <div className="flex items-center text-blue-700">
             <Info className="w-5 h-5 mr-2" />
-            <span className="text-sm font-medium">{t('beliefs.info')}</span>
+            <span className="text-sm font-medium">You can select multiple systems for deeper insights</span>
           </div>
         </div>
       </div>
@@ -93,10 +91,7 @@ const BeliefSystemSelector: React.FC<BeliefSystemSelectorProps> = ({
           <div className="inline-flex items-center bg-green-100 text-green-700 px-4 py-2 rounded-full">
             <Check className="w-4 h-4 mr-2" />
             <span className="font-medium">
-              {selectedBeliefs.length === 1 
-                ? t('beliefs.selected', { count: selectedBeliefs.length })
-                : t('beliefs.selectedPlural', { count: selectedBeliefs.length })
-              }
+              {selectedBeliefs.length} system{selectedBeliefs.length !== 1 ? 's' : ''} selected
             </span>
           </div>
         </div>
@@ -167,7 +162,7 @@ const BeliefSystemSelector: React.FC<BeliefSystemSelectorProps> = ({
           onClick={onBack}
           className="flex items-center text-gray-600 hover:text-gray-900 font-medium"
         >
-          ← {t('common:buttons.back')}
+          ← Back
         </button>
 
         <div className="text-center">
@@ -187,7 +182,7 @@ const BeliefSystemSelector: React.FC<BeliefSystemSelectorProps> = ({
               : 'bg-gray-200 text-gray-400 cursor-not-allowed'
           }`}
         >
-          {t('beliefs.continue')} →
+          Continue →
         </button>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
-import { AppState, OnboardingData, Task } from '../types';
+import { OnboardingData, Task } from '../types';
 import { KarmaAnalysisResult } from '../types/karma';
 import BeliefSystemSelector from './BeliefSystemSelector';
 import ProfileSetup from './ProfileSetup';
@@ -11,13 +10,11 @@ import QuestBuilder from './QuestBuilder';
 import { KarmaEngine } from '../utils/karmaEngine';
 
 interface OnboardingProps {
-  state: AppState;
   onComplete: (data: OnboardingData) => void;
   onBack: () => void;
 }
 
-const Onboarding: React.FC<OnboardingProps> = ({ state, onComplete, onBack }) => {
-  const { t } = useTranslation(['onboarding', 'common']);
+const Onboarding: React.FC<OnboardingProps> = ({ onComplete, onBack }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [currentTestIndex, setCurrentTestIndex] = useState(0);
@@ -33,25 +30,25 @@ const Onboarding: React.FC<OnboardingProps> = ({ state, onComplete, onBack }) =>
   const [karmaResult, setKarmaResult] = useState<KarmaAnalysisResult | null>(null);
 
   const steps = [
-    { title: t('steps.welcome'), description: 'Давайте начнем ваше путешествие' },
-    { title: t('steps.beliefs'), description: 'Выберите системы верований, которые резонируют с вами' },
-    { title: t('steps.profile'), description: 'Расскажите нам о себе' },
-    { title: 'Тестирование кармы', description: 'Пройдите индивидуальные тесты' },
-    { title: t('steps.insight'), description: 'Ваш персонализированный анализ' },
-    { title: t('steps.quests'), description: 'Создайте свой план действий' }
+    { title: 'Welcome', description: 'Let\'s begin your journey' },
+    { title: 'Belief Systems', description: 'Choose systems that resonate with you' },
+    { title: 'Profile Setup', description: 'Tell us about yourself' },
+    { title: 'Karma Testing', description: 'Take personalized tests' },
+    { title: 'Your Analysis', description: 'Your personalized karma analysis' },
+    { title: 'Quest Builder', description: 'Create your action plan' }
   ];
 
   const handleNext = async () => {
     if (currentStep === 2) {
-      // После настройки профиля переходим к тестам
+      // After profile setup, go to tests
       setCurrentStep(3);
       setCurrentTestIndex(0);
     } else if (currentStep === 3) {
-      // Переход к следующему тесту или анализу
+      // Move to next test or analysis
       if (currentTestIndex < onboardingData.selectedBeliefs.length - 1) {
         setCurrentTestIndex(currentTestIndex + 1);
       } else {
-        // Все тесты пройдены, генерируем анализ кармы
+        // All tests completed, generate karma analysis
         setIsLoading(true);
         try {
           const karmaAnalysis = await KarmaEngine.generateKarmaAnalysis(
@@ -68,10 +65,10 @@ const Onboarding: React.FC<OnboardingProps> = ({ state, onComplete, onBack }) =>
         }
       }
     } else if (currentStep === 4) {
-      // Переход к созданию квестов
+      // Move to quest builder
       setCurrentStep(5);
     } else if (currentStep === 5) {
-      // Завершение онбординга
+      // Complete onboarding
       const finalData = {
         ...onboardingData,
         karmaInsight: karmaResult
@@ -123,10 +120,10 @@ const Onboarding: React.FC<OnboardingProps> = ({ state, onComplete, onBack }) =>
         <div className="text-center py-16">
           <Loader2 className="w-12 h-12 animate-spin text-purple-600 mx-auto mb-4" />
           <h3 className="text-xl font-semibold text-gray-900 mb-2">
-            {t('loading.title')}
+            Analyzing Your Karma
           </h3>
           <p className="text-gray-600">
-            {t('loading.description')}
+            Processing your responses to create personalized insights...
           </p>
         </div>
       );
@@ -138,17 +135,17 @@ const Onboarding: React.FC<OnboardingProps> = ({ state, onComplete, onBack }) =>
           <div className="text-center">
             <div className="text-6xl mb-6">🌟</div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              {t('welcome.title')}
+              Welcome to KarmaQuest
             </h2>
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              {t('welcome.description')}
+              Discover your cosmic potential through personalized insights from multiple belief systems
             </p>
             <div className="flex justify-center">
               <button
                 onClick={handleNext}
                 className="bg-gradient-to-r from-purple-600 to-teal-600 text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform flex items-center"
               >
-                {t('welcome.cta')}
+                Begin Your Journey
                 <ArrowRight className="w-5 h-5 ml-2" />
               </button>
             </div>
@@ -219,7 +216,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ state, onComplete, onBack }) =>
 
   const getCurrentStepForProgress = () => {
     if (currentStep === 3) {
-      // Для тестов показываем прогресс внутри шага
+      // For tests, show progress within the step
       return 3 + (currentTestIndex / onboardingData.selectedBeliefs.length);
     }
     return currentStep;
@@ -251,13 +248,13 @@ const Onboarding: React.FC<OnboardingProps> = ({ state, onComplete, onBack }) =>
           <div className="text-center">
             <h1 className="text-lg font-semibold text-gray-900">
               {currentStep === 3 
-                ? `Тест: ${onboardingData.selectedBeliefs[currentTestIndex]} (${currentTestIndex + 1}/${onboardingData.selectedBeliefs.length})`
+                ? `Test: ${onboardingData.selectedBeliefs[currentTestIndex]} (${currentTestIndex + 1}/${onboardingData.selectedBeliefs.length})`
                 : steps[currentStep]?.title
               }
             </h1>
             <p className="text-sm text-gray-600">
               {currentStep === 3 
-                ? `Определяем вашу карму через ${onboardingData.selectedBeliefs[currentTestIndex]}`
+                ? `Determining your karma through ${onboardingData.selectedBeliefs[currentTestIndex]}`
                 : steps[currentStep]?.description
               }
             </p>
