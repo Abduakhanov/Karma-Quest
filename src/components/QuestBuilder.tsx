@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Plus, Star, Target, Check, X, Shuffle, ArrowRight } from 'lucide-react';
 import { Task } from '../types';
 
@@ -20,7 +19,6 @@ const QuestBuilder: React.FC<QuestBuilderProps> = ({
   onNext,
   onBack
 }) => {
-  const { t } = useTranslation(['onboarding', 'common']);
   const [showCustomForm, setShowCustomForm] = useState(false);
   const [filter, setFilter] = useState<'all' | 'health' | 'relationships' | 'finances' | 'spirituality' | 'career'>('all');
   const [customTask, setCustomTask] = useState({
@@ -86,20 +84,17 @@ const QuestBuilder: React.FC<QuestBuilderProps> = ({
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">
-          {t('quests.title')}
+          Build Your Quest Plan
         </h2>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
-          {t('quests.description')}
+          Choose tasks that align with your karma to start your transformation journey
         </p>
         
         {selectedTasks.length > 0 && (
           <div className="inline-flex items-center bg-green-100 text-green-700 px-4 py-2 rounded-full">
             <Check className="w-4 h-4 mr-2" />
             <span className="font-medium">
-              {selectedTasks.length === 1 
-                ? t('quests.selected', { count: selectedTasks.length })
-                : t('quests.selectedPlural', { count: selectedTasks.length })
-              }
+              {selectedTasks.length} quest{selectedTasks.length !== 1 ? 's' : ''} selected
             </span>
           </div>
         )}
@@ -130,14 +125,14 @@ const QuestBuilder: React.FC<QuestBuilderProps> = ({
               className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
             >
               <Shuffle className="w-4 h-4 mr-2" />
-              {t('quests.randomPick')}
+              Random Pick
             </button>
             <button
               onClick={() => setShowCustomForm(true)}
               className="flex items-center bg-gradient-to-r from-purple-600 to-teal-600 text-white px-4 py-2 rounded-lg font-medium hover:scale-105 transition-transform"
             >
               <Plus className="w-4 h-4 mr-2" />
-              {t('quests.customQuest')}
+              Custom Quest
             </button>
           </div>
         </div>
@@ -244,7 +239,7 @@ const QuestBuilder: React.FC<QuestBuilderProps> = ({
                 onClick={() => setShowCustomForm(false)}
                 className="border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors"
               >
-                {t('common:buttons.cancel')}
+                Cancel
               </button>
             </div>
           </form>
@@ -293,7 +288,7 @@ const QuestBuilder: React.FC<QuestBuilderProps> = ({
                     <Star key={i} className={`w-3 h-3 ${priorityColors[task.priority]}`} />
                   ))}
                 </div>
-                <span className="text-xs text-gray-500">+{task.xpReward} {t('common:units.xp')}</span>
+                <span className="text-xs text-gray-500">+{task.xpReward} XP</span>
               </div>
             </div>
           </div>
@@ -314,14 +309,14 @@ const QuestBuilder: React.FC<QuestBuilderProps> = ({
           onClick={onBack}
           className="flex items-center text-gray-600 hover:text-gray-900 font-medium"
         >
-          ← {t('common:buttons.back')}
+          ← Back
         </button>
 
         <div className="text-center">
           <p className="text-sm text-gray-600 mb-2">
-            {selectedTasks.length === 0 ? t('quests.selectSome') : 
-             selectedTasks.length === 1 ? `${selectedTasks.length} quest ${t('quests.ready')}` :
-             `${selectedTasks.length} quests ${t('quests.readyPlural')}`}
+            {selectedTasks.length === 0 ? 'Select some quests to continue' : 
+             selectedTasks.length === 1 ? `${selectedTasks.length} quest ready` :
+             `${selectedTasks.length} quests ready`}
           </p>
         </div>
 
@@ -334,7 +329,7 @@ const QuestBuilder: React.FC<QuestBuilderProps> = ({
               : 'bg-gray-200 text-gray-400 cursor-not-allowed'
           }`}
         >
-          {t('quests.startJourney')}
+          Start Your Journey
           <ArrowRight className="w-5 h-5 ml-2" />
         </button>
       </div>

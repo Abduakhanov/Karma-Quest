@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { ChevronLeft, ChevronRight, Star, Heart, Brain, Eye, Zap, Clock, CheckCircle } from 'lucide-react';
 import { KarmaTest, KarmaQuestion, KarmaOption } from '../types/karma';
 import { getExtendedTestByBeliefSystem } from '../data/extendedKarmaTests';
@@ -15,7 +14,6 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
   onComplete,
   onBack
 }) => {
-  const { t } = useTranslation(['onboarding', 'common']);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [responses, setResponses] = useState<{ [questionId: string]: any }>({});
   const [startTime] = useState(Date.now());
@@ -38,7 +36,7 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
 
   const handleNext = () => {
     if (isLastQuestion) {
-      // Добавляем метаданные о прохождении теста
+      // Add test metadata
       const testMetadata = {
         totalTime: Date.now() - startTime,
         beliefSystem,
@@ -100,9 +98,9 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
         return (
           <div className="space-y-6">
             <div className="flex justify-between text-sm text-gray-600 mb-4">
-              <span>1 - Совсем не важно</span>
-              <span>5 - Нейтрально</span>
-              <span>10 - Крайне важно</span>
+              <span>1 - Not important at all</span>
+              <span>5 - Neutral</span>
+              <span>10 - Extremely important</span>
             </div>
             
             <div className="relative">
@@ -122,7 +120,7 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
                 ))}
               </div>
               
-              {/* Визуальная шкала */}
+              {/* Visual scale */}
               <div className="h-2 bg-gray-200 rounded-full mt-4">
                 {responses[question.id] && (
                   <div 
@@ -136,7 +134,7 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
             {responses[question.id] && (
               <div className="text-center">
                 <span className="text-lg font-semibold text-purple-600">
-                  Ваш ответ: {responses[question.id]}/10
+                  Your answer: {responses[question.id]}/10
                 </span>
               </div>
             )}
@@ -151,18 +149,18 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
           <div className="space-y-4">
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
               <p className="text-sm text-blue-700">
-                <strong>Инструкция:</strong> Выберите и расставьте по важности до {maxSelections} вариантов. 
-                Нажмите на вариант, чтобы добавить его в список приоритетов.
+                <strong>Instructions:</strong> Select and prioritize up to {maxSelections} options. 
+                Click on an option to add it to your priority list.
               </p>
               <p className="text-xs text-blue-600 mt-2">
-                Выбрано: {selectedPriorities.length}/{maxSelections}
+                Selected: {selectedPriorities.length}/{maxSelections}
               </p>
             </div>
             
-            {/* Список приоритетов */}
+            {/* Priority list */}
             {selectedPriorities.length > 0 && (
               <div className="bg-purple-50 rounded-lg p-4 mb-4">
-                <h4 className="font-medium text-purple-900 mb-3">Ваши приоритеты:</h4>
+                <h4 className="font-medium text-purple-900 mb-3">Your priorities:</h4>
                 <div className="space-y-2">
                   {selectedPriorities.map((optionId: string, index: number) => {
                     const option = question.options?.find(opt => opt.id === optionId);
@@ -188,7 +186,7 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
               </div>
             )}
             
-            {/* Доступные варианты */}
+            {/* Available options */}
             <div className="space-y-3">
               {question.options?.map((option) => {
                 const isSelected = selectedPriorities.includes(option.id);
@@ -250,17 +248,17 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
 
   const getBeliefSystemName = (system: string) => {
     const names = {
-      astrology: 'Астрология',
-      psychology: 'Психология',
-      chakras: 'Чакры',
-      numerology: 'Нумерология',
-      tarot: 'Таро'
+      astrology: 'Astrology',
+      psychology: 'Psychology',
+      chakras: 'Chakras',
+      numerology: 'Numerology',
+      tarot: 'Tarot'
     };
     return names[system as keyof typeof names] || system;
   };
 
   const Icon = getBeliefSystemIcon(beliefSystem);
-  const estimatedTimeLeft = Math.max(0, (test.questions.length - currentQuestionIndex - 1) * 45); // 45 секунд на вопрос
+  const estimatedTimeLeft = Math.max(0, (test.questions.length - currentQuestionIndex - 1) * 45); // 45 seconds per question
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -274,11 +272,11 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
         </div>
         
         <h2 className="text-3xl font-bold text-gray-900 mb-4">
-          Глубокий анализ кармы
+          Deep Karma Analysis
         </h2>
         
         <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-          Этот расширенный тест поможет точно определить ваше кармическое предназначение через призму {getBeliefSystemName(beliefSystem).toLowerCase()}
+          This extended test will help accurately determine your karmic purpose through the lens of {getBeliefSystemName(beliefSystem).toLowerCase()}
         </p>
         
         {/* Progress Bar */}
@@ -290,13 +288,13 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
         </div>
         
         <div className="flex justify-between items-center text-sm text-gray-600">
-          <span>Вопрос {currentQuestionIndex + 1} из {test.questions.length}</span>
+          <span>Question {currentQuestionIndex + 1} of {test.questions.length}</span>
           <div className="flex items-center space-x-4">
             <div className="flex items-center">
               <Clock className="w-4 h-4 mr-1" />
-              <span>~{Math.ceil(estimatedTimeLeft / 60)} мин осталось</span>
+              <span>~{Math.ceil(estimatedTimeLeft / 60)} min remaining</span>
             </div>
-            <span>{Math.round(progress)}% завершено</span>
+            <span>{Math.round(progress)}% complete</span>
           </div>
         </div>
       </div>
@@ -311,15 +309,15 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
               </div>
               {currentQuestion.weight && currentQuestion.weight > 2 && (
                 <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full font-medium">
-                  Ключевой вопрос
+                  Key Question
                 </span>
               )}
             </div>
             <div className="text-sm text-gray-500">
-              {currentQuestion.type === 'scenario' && '📖 Сценарий'}
-              {currentQuestion.type === 'choice' && '🎯 Выбор'}
-              {currentQuestion.type === 'scale' && '📊 Шкала'}
-              {currentQuestion.type === 'priority' && '📋 Приоритеты'}
+              {currentQuestion.type === 'scenario' && '📖 Scenario'}
+              {currentQuestion.type === 'choice' && '🎯 Choice'}
+              {currentQuestion.type === 'scale' && '📊 Scale'}
+              {currentQuestion.type === 'priority' && '📋 Priorities'}
             </div>
           </div>
           
@@ -338,15 +336,15 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
           className="flex items-center text-gray-600 hover:text-gray-900 font-medium transition-colors px-4 py-2 rounded-lg hover:bg-gray-100"
         >
           <ChevronLeft className="w-5 h-5 mr-1" />
-          {currentQuestionIndex === 0 ? 'Назад к профилю' : 'Предыдущий вопрос'}
+          {currentQuestionIndex === 0 ? 'Back to Profile' : 'Previous Question'}
         </button>
 
         <div className="text-center">
           {!canProceed && (
             <p className="text-sm text-gray-500 bg-gray-50 px-4 py-2 rounded-lg">
               {currentQuestion.type === 'priority' 
-                ? 'Выберите хотя бы один вариант'
-                : 'Выберите ответ для продолжения'
+                ? 'Select at least one option'
+                : 'Choose an answer to continue'
               }
             </p>
           )}
@@ -363,12 +361,12 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
         >
           {isLastQuestion ? (
             <>
-              Завершить анализ
+              Complete Analysis
               <CheckCircle className="w-5 h-5 ml-2" />
             </>
           ) : (
             <>
-              Следующий вопрос
+              Next Question
               <ChevronRight className="w-5 h-5 ml-2" />
             </>
           )}
@@ -379,10 +377,10 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
       <div className="mt-8 bg-gray-50 rounded-lg p-4">
         <div className="flex items-center justify-between text-sm text-gray-600">
           <div className="flex items-center space-x-4">
-            <span>🔒 Ваши ответы конфиденциальны</span>
-            <span>⚡ Нет правильных или неправильных ответов</span>
+            <span>🔒 Your answers are confidential</span>
+            <span>⚡ No right or wrong answers</span>
           </div>
-          <span>💡 Отвечайте интуитивно</span>
+          <span>💡 Answer intuitively</span>
         </div>
       </div>
     </div>

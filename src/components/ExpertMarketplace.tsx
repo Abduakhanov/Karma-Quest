@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Star, Calendar, MessageCircle, Award, Filter, Search, Clock, DollarSign } from 'lucide-react';
 
 interface Expert {
@@ -18,7 +17,6 @@ interface Expert {
 }
 
 const ExpertMarketplace: React.FC = () => {
-  const { t } = useTranslation(['marketplace', 'common']);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>('all');
   const [priceRange, setPriceRange] = useState<string>('all');
@@ -70,7 +68,7 @@ const ExpertMarketplace: React.FC = () => {
 
   const specialties = ['all', 'Astrology', 'Psychology', 'Tarot', 'Numerology', 'Chakras', 'MBTI', 'Human Design'];
   const priceRanges = [
-    { value: 'all', label: t('search.allPrices') },
+    { value: 'all', label: 'All Prices' },
     { value: '0-50', label: '$0 - $50' },
     { value: '50-100', label: '$50 - $100' },
     { value: '100+', label: '$100+' }
@@ -101,8 +99,8 @@ const ExpertMarketplace: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('title')}</h1>
-          <p className="text-gray-600 mb-6">{t('description')}</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Expert Marketplace</h1>
+          <p className="text-gray-600 mb-6">Connect with certified experts for personalized guidance on your karma journey</p>
           
           <div className="bg-gradient-to-r from-purple-600 to-teal-600 rounded-xl p-6 text-white">
             <div className="flex items-center justify-between">
@@ -111,7 +109,7 @@ const ExpertMarketplace: React.FC = () => {
                 <p className="text-purple-100">Share your knowledge and earn income by helping others on their karma journey</p>
               </div>
               <button className="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:scale-105 transition-transform">
-                {t('becomeExpert')}
+                Apply Now
               </button>
             </div>
           </div>
@@ -124,7 +122,7 @@ const ExpertMarketplace: React.FC = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="text"
-                placeholder={t('search.placeholder')}
+                placeholder="Search experts..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
@@ -138,7 +136,7 @@ const ExpertMarketplace: React.FC = () => {
             >
               {specialties.map(specialty => (
                 <option key={specialty} value={specialty}>
-                  {specialty === 'all' ? t('search.allSpecialties') : specialty}
+                  {specialty === 'all' ? 'All Specialties' : specialty}
                 </option>
               ))}
             </select>
@@ -157,7 +155,7 @@ const ExpertMarketplace: React.FC = () => {
             
             <button className="flex items-center justify-center border border-gray-300 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors">
               <Filter className="w-4 h-4 mr-2" />
-              {t('search.moreFilters')}
+              More Filters
             </button>
           </div>
         </div>
@@ -173,13 +171,13 @@ const ExpertMarketplace: React.FC = () => {
                   <div className="flex items-center space-x-2">
                     <h3 className="font-semibold text-gray-900">{expert.name}</h3>
                     {expert.verified && (
-                      <Award className="w-4 h-4 text-blue-500" title={t('expert.verified')} />
+                      <Award className="w-4 h-4 text-blue-500" title="Verified Expert" />
                     )}
                   </div>
                   <div className="flex items-center space-x-1 mt-1">
                     <Star className="w-4 h-4 text-yellow-500 fill-current" />
                     <span className="text-sm font-medium">{expert.rating}</span>
-                    <span className="text-sm text-gray-500">({expert.reviewCount} {t('reviews')})</span>
+                    <span className="text-sm text-gray-500">({expert.reviewCount} reviews)</span>
                   </div>
                 </div>
               </div>
@@ -204,13 +202,13 @@ const ExpertMarketplace: React.FC = () => {
                 </div>
                 <div className="flex items-center text-gray-600">
                   <MessageCircle className="w-4 h-4 mr-1" />
-                  <span>{expert.completedSessions} {t('expert.completedSessions')}</span>
+                  <span>{expert.completedSessions} sessions</span>
                 </div>
               </div>
 
               {/* Languages */}
               <div className="mb-4">
-                <div className="text-xs text-gray-500 mb-1">{t('expert.languages')}</div>
+                <div className="text-xs text-gray-500 mb-1">Languages</div>
                 <div className="flex flex-wrap gap-1">
                   {expert.languages.map(lang => (
                     <span key={lang} className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
@@ -225,14 +223,14 @@ const ExpertMarketplace: React.FC = () => {
                 <div className="flex items-center text-gray-900">
                   <DollarSign className="w-4 h-4" />
                   <span className="font-semibold">{expert.hourlyRate}</span>
-                  <span className="text-sm text-gray-500">/{t('expert.hourlyRate')}</span>
+                  <span className="text-sm text-gray-500">/hour</span>
                 </div>
                 
                 <button
                   onClick={() => handleBookSession(expert.id)}
                   className="bg-gradient-to-r from-purple-600 to-teal-600 text-white px-4 py-2 rounded-lg font-medium hover:scale-105 transition-transform"
                 >
-                  {t('bookSession')}
+                  Book Session
                 </button>
               </div>
             </div>
@@ -242,37 +240,37 @@ const ExpertMarketplace: React.FC = () => {
         {filteredExperts.length === 0 && (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🔍</div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('empty.title')}</h3>
-            <p className="text-gray-600">{t('empty.description')}</p>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">No experts found</h3>
+            <p className="text-gray-600">Try adjusting your search criteria</p>
           </div>
         )}
 
         {/* Trust & Safety */}
         <div className="bg-white rounded-xl shadow-lg p-6 mt-8">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('trustSafety.title')}</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Trust & Safety</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
               <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
                 <Award className="w-6 h-6 text-green-600" />
               </div>
-              <h4 className="font-medium text-gray-900 mb-2">{t('trustSafety.verifiedExperts.title')}</h4>
-              <p className="text-sm text-gray-600">{t('trustSafety.verifiedExperts.description')}</p>
+              <h4 className="font-medium text-gray-900 mb-2">Verified Experts</h4>
+              <p className="text-sm text-gray-600">All experts are thoroughly vetted and certified</p>
             </div>
             
             <div className="text-center">
               <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
                 <MessageCircle className="w-6 h-6 text-blue-600" />
               </div>
-              <h4 className="font-medium text-gray-900 mb-2">{t('trustSafety.secureMessaging.title')}</h4>
-              <p className="text-sm text-gray-600">{t('trustSafety.secureMessaging.description')}</p>
+              <h4 className="font-medium text-gray-900 mb-2">Secure Messaging</h4>
+              <p className="text-sm text-gray-600">All communications are encrypted and private</p>
             </div>
             
             <div className="text-center">
               <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
                 <DollarSign className="w-6 h-6 text-purple-600" />
               </div>
-              <h4 className="font-medium text-gray-900 mb-2">{t('trustSafety.moneyBack.title')}</h4>
-              <p className="text-sm text-gray-600">{t('trustSafety.moneyBack.description')}</p>
+              <h4 className="font-medium text-gray-900 mb-2">Money-Back Guarantee</h4>
+              <p className="text-sm text-gray-600">100% satisfaction guaranteed or your money back</p>
             </div>
           </div>
         </div>
