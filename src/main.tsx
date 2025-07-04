@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from './App.tsx';
 import './index.css';
-import './i18n';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -15,6 +14,12 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+// Initialize dark mode from localStorage
+const isDarkMode = localStorage.getItem('karmaquest-storage')?.includes('"darkMode":true');
+if (isDarkMode) {
+  document.documentElement.classList.add('dark');
+}
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
