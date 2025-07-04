@@ -9,7 +9,7 @@ import fs from 'fs';
 import path from 'path';
 
 const SUPPORTED_LANGUAGES = ['en', 'ru', 'kz'];
-const NAMESPACES = ['common', 'landing', 'dashboard', 'tasks', 'diary', 'rewards', 'onboarding', 'marketplace'];
+const NAMESPACES = ['common', 'landing', 'dashboard', 'tasks', 'diary', 'rewards', 'onboarding'];
 
 function loadTranslations(lng, ns) {
   const filePath = path.join(process.cwd(), 'public', 'locales', lng, `${ns}.json`);

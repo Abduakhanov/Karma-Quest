@@ -13,9 +13,7 @@
     "add": "Add",
     "create": "Create",
     "update": "Update",
-    "confirm": "Confirm",
-    "retry": "Retry",
-    "refresh": "Refresh"
+    "confirm": "Confirm"
   },
   "navigation": {
     "dashboard": "Dashboard",
@@ -24,8 +22,7 @@
     "rewards": "Rewards",
     "marketplace": "Marketplace",
     "profile": "Profile",
-    "settings": "Settings",
-    "home": "Home"
+    "settings": "Settings"
   },
   "status": {
     "success": "Success",
@@ -35,9 +32,7 @@
     "completed": "Completed",
     "pending": "Pending",
     "active": "Active",
-    "inactive": "Inactive",
-    "processing": "Processing",
-    "failed": "Failed"
+    "inactive": "Inactive"
   },
   "time": {
     "today": "Today",
@@ -46,9 +41,7 @@
     "thisWeek": "This week",
     "lastWeek": "Last week",
     "thisMonth": "This month",
-    "lastMonth": "Last month",
-    "now": "Now",
-    "soon": "Soon"
+    "lastMonth": "Last month"
   },
   "units": {
     "xp": "XP",
@@ -56,19 +49,6 @@
     "points": "Points",
     "days": "Days",
     "hours": "Hours",
-    "minutes": "Minutes",
-    "priority": "Priority"
-  },
-  "karma": {
-    "types": {
-      "helper": "Helper to people",
-      "independent": "Independent path",
-      "creator": "Creator and builder",
-      "protector": "Protector and guardian",
-      "teacher": "Teacher and mentor",
-      "healer": "Soul healer",
-      "leader": "Leader and inspirer",
-      "seeker": "Truth seeker"
-    }
+    "minutes": "Minutes"
   }
 }

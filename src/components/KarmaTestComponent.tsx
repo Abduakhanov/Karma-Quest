@@ -100,9 +100,9 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
         return (
           <div className="space-y-6">
             <div className="flex justify-between text-sm text-gray-600 mb-4">
-              <span>{t('test.scale.notImportant')}</span>
-              <span>{t('test.scale.neutral')}</span>
-              <span>{t('test.scale.veryImportant')}</span>
+              <span>1 - Совсем не важно</span>
+              <span>5 - Нейтрально</span>
+              <span>10 - Крайне важно</span>
             </div>
             
             <div className="relative">
@@ -136,7 +136,7 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
             {responses[question.id] && (
               <div className="text-center">
                 <span className="text-lg font-semibold text-purple-600">
-                  {t('test.scale.yourAnswer')}: {responses[question.id]}/10
+                  Ваш ответ: {responses[question.id]}/10
                 </span>
               </div>
             )}
@@ -151,17 +151,18 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
           <div className="space-y-4">
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
               <p className="text-sm text-blue-700">
-                <strong>{t('test.priority.instruction')}:</strong> {t('test.priority.description', { max: maxSelections })}
+                <strong>Инструкция:</strong> Выберите и расставьте по важности до {maxSelections} вариантов. 
+                Нажмите на вариант, чтобы добавить его в список приоритетов.
               </p>
               <p className="text-xs text-blue-600 mt-2">
-                {t('test.priority.selected')}: {selectedPriorities.length}/{maxSelections}
+                Выбрано: {selectedPriorities.length}/{maxSelections}
               </p>
             </div>
             
             {/* Список приоритетов */}
             {selectedPriorities.length > 0 && (
               <div className="bg-purple-50 rounded-lg p-4 mb-4">
-                <h4 className="font-medium text-purple-900 mb-3">{t('test.priority.yourPriorities')}:</h4>
+                <h4 className="font-medium text-purple-900 mb-3">Ваши приоритеты:</h4>
                 <div className="space-y-2">
                   {selectedPriorities.map((optionId: string, index: number) => {
                     const option = question.options?.find(opt => opt.id === optionId);
@@ -249,11 +250,11 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
 
   const getBeliefSystemName = (system: string) => {
     const names = {
-      astrology: t('test.systems.astrology'),
-      psychology: t('test.systems.psychology'),
-      chakras: t('test.systems.chakras'),
-      numerology: t('test.systems.numerology'),
-      tarot: t('test.systems.tarot')
+      astrology: 'Астрология',
+      psychology: 'Психология',
+      chakras: 'Чакры',
+      numerology: 'Нумерология',
+      tarot: 'Таро'
     };
     return names[system as keyof typeof names] || system;
   };
@@ -273,11 +274,11 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
         </div>
         
         <h2 className="text-3xl font-bold text-gray-900 mb-4">
-          {t('test.title')}
+          Глубокий анализ кармы
         </h2>
         
         <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-          {t('test.description', { system: getBeliefSystemName(beliefSystem).toLowerCase() })}
+          Этот расширенный тест поможет точно определить ваше кармическое предназначение через призму {getBeliefSystemName(beliefSystem).toLowerCase()}
         </p>
         
         {/* Progress Bar */}
@@ -289,13 +290,13 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
         </div>
         
         <div className="flex justify-between items-center text-sm text-gray-600">
-          <span>{t('test.progress.question')} {currentQuestionIndex + 1} {t('test.progress.of')} {test.questions.length}</span>
+          <span>Вопрос {currentQuestionIndex + 1} из {test.questions.length}</span>
           <div className="flex items-center space-x-4">
             <div className="flex items-center">
               <Clock className="w-4 h-4 mr-1" />
-              <span>~{Math.ceil(estimatedTimeLeft / 60)} {t('test.progress.minLeft')}</span>
+              <span>~{Math.ceil(estimatedTimeLeft / 60)} мин осталось</span>
             </div>
-            <span>{Math.round(progress)}% {t('test.progress.completed')}</span>
+            <span>{Math.round(progress)}% завершено</span>
           </div>
         </div>
       </div>
@@ -310,15 +311,15 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
               </div>
               {currentQuestion.weight && currentQuestion.weight > 2 && (
                 <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full font-medium">
-                  {t('test.keyQuestion')}
+                  Ключевой вопрос
                 </span>
               )}
             </div>
             <div className="text-sm text-gray-500">
-              {currentQuestion.type === 'scenario' && `📖 ${t('test.types.scenario')}`}
-              {currentQuestion.type === 'choice' && `🎯 ${t('test.types.choice')}`}
-              {currentQuestion.type === 'scale' && `📊 ${t('test.types.scale')}`}
-              {currentQuestion.type === 'priority' && `📋 ${t('test.types.priority')}`}
+              {currentQuestion.type === 'scenario' && '📖 Сценарий'}
+              {currentQuestion.type === 'choice' && '🎯 Выбор'}
+              {currentQuestion.type === 'scale' && '📊 Шкала'}
+              {currentQuestion.type === 'priority' && '📋 Приоритеты'}
             </div>
           </div>
           
@@ -337,15 +338,15 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
           className="flex items-center text-gray-600 hover:text-gray-900 font-medium transition-colors px-4 py-2 rounded-lg hover:bg-gray-100"
         >
           <ChevronLeft className="w-5 h-5 mr-1" />
-          {currentQuestionIndex === 0 ? t('test.backToProfile') : t('test.previousQuestion')}
+          {currentQuestionIndex === 0 ? 'Назад к профилю' : 'Предыдущий вопрос'}
         </button>
 
         <div className="text-center">
           {!canProceed && (
             <p className="text-sm text-gray-500 bg-gray-50 px-4 py-2 rounded-lg">
               {currentQuestion.type === 'priority' 
-                ? t('test.selectAtLeastOne')
-                : t('test.selectToContinue')
+                ? 'Выберите хотя бы один вариант'
+                : 'Выберите ответ для продолжения'
               }
             </p>
           )}
@@ -362,12 +363,12 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
         >
           {isLastQuestion ? (
             <>
-              {t('test.completeAnalysis')}
+              Завершить анализ
               <CheckCircle className="w-5 h-5 ml-2" />
             </>
           ) : (
             <>
-              {t('test.nextQuestion')}
+              Следующий вопрос
               <ChevronRight className="w-5 h-5 ml-2" />
             </>
           )}
@@ -378,10 +379,10 @@ const KarmaTestComponent: React.FC<KarmaTestComponentProps> = ({
       <div className="mt-8 bg-gray-50 rounded-lg p-4">
         <div className="flex items-center justify-between text-sm text-gray-600">
           <div className="flex items-center space-x-4">
-            <span>🔒 {t('test.confidential')}</span>
-            <span>⚡ {t('test.noWrongAnswers')}</span>
+            <span>🔒 Ваши ответы конфиденциальны</span>
+            <span>⚡ Нет правильных или неправильных ответов</span>
           </div>
-          <span>💡 {t('test.answerIntuitively')}</span>
+          <span>💡 Отвечайте интуитивно</span>
         </div>
       </div>
     </div>
