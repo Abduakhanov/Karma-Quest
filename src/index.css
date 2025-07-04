@@ -28,6 +28,11 @@
   body {
     @apply transition-colors duration-300;
   }
+
+  /* Improved focus styles for accessibility */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-purple-500 ring-offset-2 dark:ring-offset-gray-800;
+  }
 }
 
 @layer components {
@@ -60,6 +65,19 @@
   .animate-pulse-slow {
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
+
+  .animate-bounce-slow {
+    animation: bounce 2s infinite;
+  }
+
+  /* Improved animations */
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+
+  .animate-shake {
+    animation: shake 0.5s ease-in-out;
+  }
 }
 
 @keyframes fadeIn {
@@ -84,6 +102,23 @@
   }
 }
 
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -101,12 +136,45 @@
   @apply bg-gray-400 dark:bg-gray-500;
 }
 
-/* Focus styles for accessibility */
-.focus-visible {
-  @apply outline-none ring-2 ring-purple-500 ring-offset-2 dark:ring-offset-gray-800;
-}
-
 /* Smooth transitions for theme switching */
 * {
   transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Improved loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.dark .loading-shimmer {
+  background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+  background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Performance optimizations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

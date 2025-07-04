@@ -28,6 +28,7 @@ export default defineConfig(({ mode }) => ({
           query: ['@tanstack/react-query'],
           icons: ['lucide-react'],
           motion: ['framer-motion'],
+          utils: ['date-fns', 'zod']
         }
       }
     },
@@ -37,8 +38,15 @@ export default defineConfig(({ mode }) => ({
       compress: {
         drop_console: true,
         drop_debugger: true,
-      }
-    } : undefined
+        pure_funcs: ['console.log', 'console.info', 'console.debug'],
+      },
+      mangle: {
+        safari10: true,
+      },
+    } : undefined,
+    target: 'es2020',
+    cssCodeSplit: true,
+    chunkSizeWarningLimit: 1000,
   },
   server: {
     port: 3000,

@@ -1,7 +1,7 @@
 {
   "name": "karmaquest-platform",
   "private": true,
-  "version": "0.7.0",
+  "version": "0.8.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "db:migrate": "node scripts/migrate.js",
     "db:seed": "node scripts/seed.js",
-    "analyze": "vite build --mode analyze"
+    "analyze": "vite build --mode analyze",
+    "build:prod": "vite build --mode production"
   },
   "dependencies": {
     "lucide-react": "^0.344.0",
